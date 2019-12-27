@@ -1,0 +1,13 @@
+$bg-color: #fff;
+
+body {
+  margin: 0;
+  background: $bg-color;
+}
+
+svg {
+  width: 500px;
+  height: 500px;
+  border: 1px dashed #000;
+  margin: 0 auto;
+}
