@@ -1,4 +1,4 @@
-import { ADD_OBJ, Curve, Point, type_curve, type_point } from "./types";
+import { ADD_OBJ, MOVE, Curve, Point, type_curve, type_point } from "./types";
 
 export const addObj = (type, obj) => {
     switch (type) {
@@ -14,5 +14,12 @@ export const addObj = (type, obj) => {
             }
         default:
                 throw Error("Wrong Obj Type")
+    }
+}
+
+export const moveObj = (id, coords) => {
+    return {
+        type: MOVE,
+        payload: { id, coords }
     }
 }

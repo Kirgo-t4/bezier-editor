@@ -3,6 +3,7 @@ $bg-color: #fff;
 body {
   margin: 0;
   background: $bg-color;
+  box-sizing: border-box;
 }
 
 svg {

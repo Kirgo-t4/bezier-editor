@@ -4,6 +4,7 @@ import { default as UUID } from "uuid";
 export const ADD_POINT = "ADD_POINT"
 export const ADD_CURVE = "ADD_CURVE"
 export const ADD_OBJ = "ADD_CURVE"
+export const MOVE = "MOVE"
 
 export const type_curve = "curve"
 export const type_point = "point"
@@ -14,6 +15,11 @@ export class Point {
         this.type = type_point
         this.x = point.x
         this.y = point.y
+    }
+
+    move = (coords) => {
+        this.x = coords.x
+        this.y = coords.y
     }
 }
 
