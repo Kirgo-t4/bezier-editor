@@ -1,61 +1,61 @@
-import React, { Component } from 'react'
+import React, { Component, Fragment } from 'react'
 import { connect } from "react-redux";
 import Point from "./Point";
 import Curve from "./Curve";
 import { type_curve, type_point } from "../actions/types";
-import { moveObj } from "../actions/objActions";
+import WithMovePoints from "./WithMovePoints";
+import WithAddingNewCurve from "./WithAdiingNewCurve";
+import WithMoveObjs from "./WithMoveObjs";
+import { unselectObj } from "../actions/objActions";
 
 export class Canvas extends Component {
 
     constructor(props) {
         super(props)
-        this.state = { dragable: null }
-    }
-
-    mdHandler = e => {
-        
-        if (e.target.id) {
-            console.log(e.clientX)
-            console.log(e.screenX)
-            console.log(e.currentTarget.getBoundingClientRect())
-           // this.props.movePoint(e.target.id, {x: 100, y: 99})
-           this.setState({ dragable: e.target.id})
-           console.log('mousedown')
+        this.state = {
+            mode: "move_obj"
         }
     }
 
-    mmHandler = e => {
-        if (this.state.dragable) {
-            let realCord = {
-                x: (e.clientX - e.currentTarget.getBoundingClientRect().left),
-                y: (e.clientY - e.currentTarget.getBoundingClientRect().top),
-            }
-            this.props.movePoint(this.state.dragable, {x: realCord.x, y: realCord.y})
-        }
+    components = {
+        move_points: WithMovePoints,
+        add_curve: WithAddingNewCurve,
+        move_obj: WithMoveObjs,
     }
 
-    muHandler = e => {
-        this.setState({ dragable: null })
-        console.log('mouseup')
+    btnMoveClick = (e) => {
+        this.setState({mode: "move_obj"})
+    }
+
+    btnEditClick = (e) => {
+        this.setState({mode: "move_points"})
+        this.props.unSelectObj()
     }
 
     render() {
+        const ContainerName = this.components[this.state.mode]
         return (
-            <div className="canvas-wrapper" onMouseDown={this.mdHandler} onMouseMove={this.mmHandler} onMouseUp={this.muHandler}>
-                <svg /*viewBox="0 0 100 100"*/>
-                    {
-                        this.props.points.map(point => 
-                            <Point id={point.id} x={point.x} y={point.y} key={point.id}></Point>
-                        )
-                    }
-                    {
-                        this.props.curves.map(curve => 
-                            <Curve id={curve.id} points={curve.points} key={curve.id}></Curve>
-                        )
-                    }
-                    
-                </svg>
-            </div>
+            <Fragment>
+                <ContainerName>
+                        {
+                            this.props.points.map(point => 
+                                <Point id={point.id} x={point.x} y={point.y} key={point.id}></Point>
+                            )
+                        }
+                        {
+                            this.props.curves.map(curve => 
+                                <Curve id={curve.id} points={curve.points} key={curve.id} selected={curve.selected}></Curve>
+                            )
+                        }
+                </ContainerName> 
+                    <button onClick={this.btnMoveClick}>
+                        move 
+                    </button>
+                    <button onClick={this.btnEditClick}>
+                        edit
+                    </button>
+                    <h2>{this.state.mode}</h2>
+            </Fragment>       
         )
     }
 }
@@ -69,8 +69,8 @@ const mapStateToProps = (state) => {
 
 const mapDispatchToProps = (dispatch) => {
     return {
-        movePoint: (id, coords) => dispatch(moveObj(id, coords))
+        unSelectObj: () => dispatch(unselectObj()),
     }
 }
 
-export default connect(mapStateToProps, mapDispatchToProps )(Canvas)
+export default connect(mapStateToProps, mapDispatchToProps)(Canvas)

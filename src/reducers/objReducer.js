@@ -1,4 +1,4 @@
-import { ADD_OBJ, MOVE, Point, Curve } from "../actions/types";
+import { ADD_OBJ, MOVE, SHIFT, SELECT, UNSELECT, Point, Curve } from "../actions/types";
 
 const initialState = {
     objs: [
@@ -18,18 +18,51 @@ export default (state = initialState, action) => {
             return {
                 ...state,
                 objs: state.objs.map((obj) => {
-                    if (obj.points) {
-                        obj.points.map( point => {
-                            if (point.id === action.payload.id) {
-                                return point.move(action.payload.coords)
-                            } else {
-                                return point
-                            }
-                        })
+                    if (obj.id === action.payload.id) {
+                        return obj.move(action.payload.coords)        
+                    } else {
+                        if (obj.points) {
+                            obj.points.map( point => {
+                                if (point.id === action.payload.id) {
+                                    return point.move(action.payload.coords)
+                                } else {
+                                    return point
+                                }
+                            })
+                        } 
                         return obj
+                    }
+                })
+            }
+        case SHIFT:
+            return {
+                ...state,
+                objs: state.objs.map((obj) => {
+                    if (obj.id === action.payload.id) {
+                        return obj.setOffset(action.payload.offset)        
                     } else {
                         return obj
                     }
+                })
+            }
+        case SELECT: 
+            return {
+                ...state,
+                objs: state.objs.map((obj) => {
+                    if (obj.id === action.payload.id) {
+                        obj.selected = true
+                    } else {
+                        obj.selected = false
+                    }
+                    return obj
+                })
+            }
+        case UNSELECT:
+            return {
+                ...state,
+                objs: state.objs.map((obj) => {
+                    obj.selected = false
+                    return obj
                 })
             }
        default:

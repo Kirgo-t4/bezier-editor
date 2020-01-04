@@ -1,14 +1,26 @@
 $bg-color: #fff;
 
+html, body {
+  height: 100%;
+}
+
 body {
   margin: 0;
   background: $bg-color;
   box-sizing: border-box;
 }
 
+#root, .App {
+  height: 100%;
+}
+
+.canvas-wrapper {
+  height: 80%;
+}
+
 svg {
-  width: 500px;
-  height: 500px;
+  width: 80%;
+  height: 80%;
   border: 1px dashed #000;
   margin: 0 auto;
 }
