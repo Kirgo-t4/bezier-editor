@@ -1,13 +1,15 @@
 import React, { Component } from 'react'
 import { connect } from "react-redux";
 import { addObj } from "../actions/objActions";
-import { type_curve } from "../actions/types";
 import TempRect from "./TempRect";
+import { getSvgCoordsX, getSvgCoordsY } from "./common";
+import SVG from "./SVG"
 
-export class WithAddingNewCurve extends Component {
+export class WithAddingNewFigure extends Component {
 
     constructor(props) {
         super(props)
+        this.CTM = {}
         this.state = { 
             dragable: null,
             startpoint: {
@@ -24,10 +26,11 @@ export class WithAddingNewCurve extends Component {
     mdHandler = e => {
         console.log(e.clientX)
         console.log(e.screenX)
-        console.log(e.currentTarget.getBoundingClientRect())
+        this.CTM = document.getElementById('svg').getScreenCTM()
+        let CTM = this.CTM
         let realCord = {
-            x: (e.clientX - e.currentTarget.getBoundingClientRect().left),
-            y: (e.clientY - e.currentTarget.getBoundingClientRect().top),
+            x: getSvgCoordsX(e.clientX, CTM),
+            y: getSvgCoordsY(e.clientY, CTM),
         }
         this.setState({ 
             dragable: true,
@@ -45,9 +48,10 @@ export class WithAddingNewCurve extends Component {
 
     mmHandler = e => {
         if (this.state.dragable) {
+            let CTM = this.CTM
             let realCord = {
-                x: (e.clientX - e.currentTarget.getBoundingClientRect().left),
-                y: (e.clientY - e.currentTarget.getBoundingClientRect().top),
+                x: getSvgCoordsX(e.clientX, CTM),
+                y: getSvgCoordsY(e.clientY, CTM),
             }
             this.setState((prevState) => ({
                 ...prevState,
@@ -62,21 +66,8 @@ export class WithAddingNewCurve extends Component {
     muHandler = e => {
         let { startpoint, endpoint } = this.state
         if (startpoint.x !== endpoint.x || startpoint.y !== endpoint.y) {
-            let newCurve = [
-                {
-                    x: startpoint.x,
-                    y: startpoint.y,
-                },
-                {
-                    x: parseInt((startpoint.x + endpoint.x)/2),
-                    y: parseInt((startpoint.y + endpoint.y)/2),
-                },
-                {
-                    x: endpoint.x,
-                    y: endpoint.y,
-                },
-            ]
-            this.props.addCurve(newCurve)
+            let newCurve = this.props.newFigure(startpoint, endpoint)
+            this.props.addCurve(this.props.type, newCurve)
             console.log(newCurve)
         }
         this.setState({ 
@@ -89,13 +80,12 @@ export class WithAddingNewCurve extends Component {
     render() {
         return (
             <div className="canvas-wrapper" onMouseDown={this.mdHandler} onMouseMove={this.mmHandler} onMouseUp={this.muHandler}>
-                <svg /*viewBox="0 0 100 100"*/>
+                <SVG>
                     {this.props.children}
                     {this.state.dragable && 
                         <TempRect startpoint={this.state.startpoint} endpoint={this.state.endpoint} />                        
                     }
-                </svg>
-                {this.state.dragable && <div>koko</div> }
+                </SVG>
             </div>
         )
     }
@@ -103,8 +93,8 @@ export class WithAddingNewCurve extends Component {
 
 const mapDispatchToProps = (dispatch) => {
     return {
-        addCurve: point => dispatch(addObj(type_curve, point))
+        addCurve: (type,point) => dispatch(addObj(type, point))
     }
 }
 
-export default connect(null, mapDispatchToProps )(WithAddingNewCurve)
+export default connect(null, mapDispatchToProps )(WithAddingNewFigure)

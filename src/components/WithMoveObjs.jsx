@@ -1,13 +1,15 @@
 import React, { Component } from 'react'
 import { connect } from "react-redux";
 import { moveObj, shiftObj, selectObj, unselectObj } from "../actions/objActions";
+import { getSvgCoordsX, getSvgCoordsY, getRealCoordsOffset } from "./common";
+import SVG from "./SVG"
 
 export class WithMoveObjs extends Component {
 
     constructor(props) {
         super(props) 
-        this.readyToMove = false
         this.mouseDown = false
+        this.CTM = {}
         this.x0 = 0
         this.y0 = 0
         this.state = {
@@ -25,50 +27,40 @@ export class WithMoveObjs extends Component {
     }
 
     mdHandler = e => {
-        let emptyClick = true
 
-        this.refs.svg.childNodes.forEach((elem) => {
-            if (!elem.getBoundingClientRect) {
-                return false
-            }
-            if (elem.tagName === "path") {
-                let { x, y ,width, height } = elem.getBoundingClientRect()
-                if ((e.clientX > x) && (e.clientX < (x + width)) && (e.clientY > y) && (e.clientY < (y + height))) {
-                    emptyClick = false
-                    this.set_state(elem.id)
-                    this.props.selectObj(elem.id)
-                }
-            }
-        })
+        console.log(e.target.id)
+        console.log(document.getElementById('svg').getScreenCTM())
 
-        if (emptyClick) {
+        this.CTM = document.getElementById('svg').getScreenCTM()
+
+        if (e.target.id && e.target.tagName === "path") {
+            this.set_state(e.target.id)
+            this.props.selectObj(e.target.id)
+        } else {
             this.set_state(null)
             this.props.unSelectObj()
         }
 
-        this.x0 = e.clientX
-        this.y0 = e.clientY
+        let CTM = this.CTM
+
+        this.x0 = getSvgCoordsX(e.clientX, CTM)
+        this.y0 = getSvgCoordsY(e.clientY, CTM)
         this.mouseDown = true
-        console.log(this.readyToMove)
     }
 
     mmHandler = e => {
+        let CTM = this.CTM
         if (this.state.dragable && this.mouseDown) {
-            let realCord = {
-                dx: (e.clientX - this.x0),
-                dy: (e.clientY - this.y0),
-            }
+            let realCord = getRealCoordsOffset(e.clientX, e.clientY, CTM, this.x0, this.y0)
             console.log("MM",realCord)
             this.props.shiftObj(this.state.dragable, {x: realCord.dx, y: realCord.dy})
         }
     }
 
     muHandler = e => {
+        let CTM = this.CTM
         this.mouseDown = false
-        let realCord = {
-            dx: (e.clientX - this.x0),
-            dy: (e.clientY - this.y0),
-        }
+        let realCord = getRealCoordsOffset(e.clientX, e.clientY, CTM, this.x0, this.y0)
         console.log("MU", realCord)
         if ((realCord.dx !==0 ) || (realCord.dy !== 0)) {
             this.props.moveObj(this.state.dragable, {x: realCord.dx, y: realCord.dy})
@@ -79,9 +71,9 @@ export class WithMoveObjs extends Component {
     render() {
         return (
             <div className="canvas-wrapper" onMouseDown={this.mdHandler} onMouseMove={this.mmHandler} onMouseUp={this.muHandler}>
-                <svg /*viewBox="0 0 100 100"*/ ref="svg">
+                <SVG>
                     {this.props.children}
-                </svg>
+                </SVG>
             </div>
         )
     }

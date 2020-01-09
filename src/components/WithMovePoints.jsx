@@ -1,6 +1,8 @@
 import React, { Component } from 'react'
 import { connect } from "react-redux";
 import { moveObj } from "../actions/objActions";
+import { getSvgCoordsX, getSvgCoordsY } from "./common";
+import SVG from "./SVG"
 
 export class WithMovePoints extends Component {
 
@@ -10,17 +12,18 @@ export class WithMovePoints extends Component {
     }
 
     mdHandler = e => {
-        if (e.target.id) {
+        if (e.target.id && e.target.tagName === "circle" ) {
             this.setState({ dragable: e.target.id})
             console.log('mousedown')
         }
     }
 
     mmHandler = e => {
+        let CTM = document.getElementById('svg').getScreenCTM()
         if (this.state.dragable) {
             let realCord = {
-                x: (e.clientX - e.currentTarget.getBoundingClientRect().left),
-                y: (e.clientY - e.currentTarget.getBoundingClientRect().top),
+                x: getSvgCoordsX(e.clientX, CTM),
+                y: getSvgCoordsY(e.clientY, CTM),
             }
             this.props.movePoint(this.state.dragable, {x: realCord.x, y: realCord.y})
         }
@@ -34,9 +37,9 @@ export class WithMovePoints extends Component {
     render() {
         return (
             <div className="canvas-wrapper" onMouseDown={this.mdHandler} onMouseMove={this.mmHandler} onMouseUp={this.muHandler}>
-                <svg /*viewBox="0 0 100 100"*/ ref="svg">
+                <SVG>
                     {this.props.children}
-                </svg>
+                </SVG>
             </div>
         )
     }

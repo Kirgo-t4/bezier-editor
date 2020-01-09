@@ -1,9 +1,11 @@
-import { ADD_OBJ, MOVE, SHIFT, SELECT, UNSELECT, Point, Curve } from "../actions/types";
+import { ADD_OBJ, MOVE, SHIFT, SELECT, UNSELECT } from "../actions/types";
+import { Curve as QCurve } from "../figures/QCurve/type";
+import { Curve as CCurve } from "../figures/CCurve/type";
 
 const initialState = {
     objs: [
-        new Point({x:420,y:10}),
-        new Curve([{x:5, y:80},{x:250, y:10},{x:480, y:340}])
+        new QCurve([{x:5, y:180},{x:100, y:10},{x:180, y:140}]),
+        new CCurve([{x:104, y:205},{x: 106, y: 100},{x: 300, y: 100},{x: 300, y: 250}])
     ]
 }
 

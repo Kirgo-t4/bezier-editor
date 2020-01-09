@@ -9,7 +9,8 @@ export const SHIFT = "SHIFT"
 export const SELECT = "SELECT"
 export const UNSELECT = "UNSELECT"
 
-export const type_curve = "curve"
+export const type_qcurve = "qcurve"
+export const type_ccurve = "ccurve"
 export const type_point = "point"
 
 export class Point {
@@ -57,10 +58,10 @@ export class Point {
     }
 }
 
-export class Curve {
+export class Figure {
     constructor(points) {
         this.id = UUID.v4()
-        this.type = type_curve
+        this.type = null
         this.offset = {
             x: 0, y: 0
         }

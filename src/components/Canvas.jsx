@@ -1,12 +1,15 @@
 import React, { Component, Fragment } from 'react'
 import { connect } from "react-redux";
-import Point from "./Point";
-import Curve from "./Curve";
-import { type_curve, type_point } from "../actions/types";
+import Point from "../figures/Point/Point";
+import QCurve from "../figures/QCurve/QCurve";
+import CCurve from "../figures/CCurve/CCurve";
+import { type_qcurve, type_ccurve, type_point } from "../actions/types";
 import WithMovePoints from "./WithMovePoints";
-import WithAddingNewCurve from "./WithAdiingNewCurve";
+import WithAddingNewFigure from "./WithAddingNewFigure";
 import WithMoveObjs from "./WithMoveObjs";
 import { unselectObj } from "../actions/objActions";
+import AddQCurveHOC from "../figures/QCurve/AddQCurveHOC";
+import AddCCurveHOC from "../figures/CCurve/AddCCurveHOC";
 
 export class Canvas extends Component {
 
@@ -15,12 +18,6 @@ export class Canvas extends Component {
         this.state = {
             mode: "move_obj"
         }
-    }
-
-    components = {
-        move_points: WithMovePoints,
-        add_curve: WithAddingNewCurve,
-        move_obj: WithMoveObjs,
     }
 
     btnMoveClick = (e) => {
@@ -32,29 +29,53 @@ export class Canvas extends Component {
         this.props.unSelectObj()
     }
 
+    currentState = (children) => {
+        switch(this.state.mode) {
+            case 'move_obj': 
+                return (<WithMoveObjs children={children} />)
+            case 'move_points':
+                return (<WithMovePoints children={children} />)
+            case 'add_qcurve':
+                const AddQ = AddQCurveHOC(WithAddingNewFigure)
+                return (<AddQ children={children}/>)
+            case 'add_ccurve':
+                const AddC = AddCCurveHOC(WithAddingNewFigure)
+                return (<AddC children={children}/>)
+            default:
+                throw new Error()
+        }
+    }
+
     render() {
-        const ContainerName = this.components[this.state.mode]
         return (
             <Fragment>
-                <ContainerName>
-                        {
-                            this.props.points.map(point => 
-                                <Point id={point.id} x={point.x} y={point.y} key={point.id}></Point>
-                            )
-                        }
-                        {
-                            this.props.curves.map(curve => 
-                                <Curve id={curve.id} points={curve.points} key={curve.id} selected={curve.selected}></Curve>
-                            )
-                        }
-                </ContainerName> 
-                    <button onClick={this.btnMoveClick}>
-                        move 
-                    </button>
-                    <button onClick={this.btnEditClick}>
-                        edit
-                    </button>
-                    <h2>{this.state.mode}</h2>
+                {this.currentState(
+                            this.props.objs.map(obj => {
+                                if (obj.type === type_point) {
+                                    return (<Point id={obj.id} x={obj.x} y={obj.y} key={obj.id} />)
+                                } else if (obj.type === type_qcurve) {
+                                    return (<QCurve id={obj.id} points={obj.points} key={obj.id} selected={obj.selected} />)
+                                } else if (obj.type === type_ccurve) {
+                                    return (<CCurve id={obj.id} points={obj.points} key={obj.id} selected={obj.selected} />)
+                                } else {
+                                    return false
+                                }
+                            })
+                )}
+                <button onClick={this.btnMoveClick}>
+                    move 
+                </button>
+                <button onClick={this.btnEditClick}>
+                    edit
+                </button>
+                <button onClick={() => this.setState({mode: "add_qcurve"})}>
+                    new Q Curve
+                </button>
+                <button onClick={() => this.setState({mode: "add_ccurve"})}>
+                    new C Curve
+                </button>
+                
+                <h2>{this.state.mode}</h2>
             </Fragment>       
         )
     }
@@ -62,8 +83,7 @@ export class Canvas extends Component {
 
 const mapStateToProps = (state) => {
     return {
-        points: state.objs.objs.filter( obj => obj.type === type_point),
-        curves: state.objs.objs.filter( obj => obj.type === type_curve),
+        objs: state.objs.objs,
     }
 }
 
