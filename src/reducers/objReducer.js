@@ -1,4 +1,4 @@
-import { ADD_OBJ, MOVE, SHIFT, SELECT, UNSELECT, CONNECT } from "../actions/types";
+import { ADD_OBJ, MOVE, SHIFT, SELECT, UNSELECT, CONNECT, REVERSE_CONNECT, REVERSE_CONNECT_ENDSIDE } from "../actions/types";
 import { Curve as QCurve } from "../figures/QCurve/type";
 import { Curve as CCurve } from "../figures/CCurve/type";
 import { Complex } from "../figures/Complex/type"
@@ -68,13 +68,35 @@ export default (state = initialState, action) => {
                     return obj
                 })
             }
-        case CONNECT:
-            const obj1 = state.objs.filter((obj) => (obj.id === action.payload.id1))[0]
-            const obj2 = state.objs.filter((obj) => (obj.id === action.payload.id2))[0]
-            const new_obj = new Complex(obj1, obj2)
+        case CONNECT: 
             return {
                 ...state,
-                objs: [new_obj, ...state.objs.filter((obj) => (obj.id !== action.payload.id1 && obj.id !== action.payload.id2))]
+                objs: [
+                    new Complex(
+                        state.objs.filter((obj) => (obj.id === action.payload.id1))[0], 
+                        state.objs.filter((obj) => (obj.id === action.payload.id2))[0]
+                    ), 
+                    ...state.objs.filter((obj) => (obj.id !== action.payload.id1 && obj.id !== action.payload.id2))]
+            }
+        case REVERSE_CONNECT:
+            return {
+                ...state,
+                objs: [
+                    new Complex(
+                        state.objs.filter((obj) => (obj.id === action.payload.id1))[0].reverseFigure(), 
+                        state.objs.filter((obj) => (obj.id === action.payload.id2))[0]
+                    ), 
+                    ...state.objs.filter((obj) => (obj.id !== action.payload.id1 && obj.id !== action.payload.id2))]
+            }
+        case REVERSE_CONNECT_ENDSIDE:
+            return {
+                ...state,
+                objs: [
+                    new Complex(
+                        state.objs.filter((obj) => (obj.id === action.payload.id1))[0], 
+                        state.objs.filter((obj) => (obj.id === action.payload.id2))[0].reverseFigure(),
+                    ), 
+                    ...state.objs.filter((obj) => (obj.id !== action.payload.id1 && obj.id !== action.payload.id2))]
             }
        default:
            return state; 

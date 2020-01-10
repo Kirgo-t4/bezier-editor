@@ -1,10 +1,9 @@
 import React, { Component } from 'react'
 import { connect } from "react-redux";
-import { moveObj, shiftObj, selectObj, unselectObj, connect as figure_connect } from "../actions/objActions";
-import { getSvgCoordsX, getSvgCoordsY, getRealCoordsOffset } from "./common";
+import { moveObj, shiftObj, selectObj, unselectObj, connect as figureConnect, reverse_connect as figureReverseConnect,
+     reverse_connect_endside as figureReverseConnectR} from "../actions/objActions";
+import { getSvgCoordsX, getSvgCoordsY, getRealCoordsOffset, detectConnection } from "./common";
 import SVG from "./SVG"
-
-const CONNECT_DIST = 5;
 
 export class WithMoveObjs extends Component {
 
@@ -16,17 +15,9 @@ export class WithMoveObjs extends Component {
         this.y0 = 0
         this.state = {
             dragable: null,
+            dragable_point: null,
             highlited_points: null
         }
-    }
-
-    set_state = (element_id) => {
-        this.setState((prevState) => {
-            return {
-                ...prevState,
-                dragable: this.get_element_href(element_id),
-            }
-        })
     }
 
     get_element_href = (element_id) => {
@@ -37,34 +28,14 @@ export class WithMoveObjs extends Component {
         }
     }
 
-    detectConnection = () => {
-        const objs  = this.props.objs
-        console.log(this.state.dragable)
-        for (let obj of objs) {
-                if (obj === this.state.dragable) {
-                    continue
+    get_point_href = (point_id) => {
+        for (let obj of this.props.objs) {
+            for (let point of obj.points) {
+                if (point.id === point_id) {
+                    return point
                 }
-                let x0_obj = obj.points[0].x
-                let y0_obj = obj.points[0].y
-                let xe_obj = obj.points[obj.points.length - 1].x
-                let ye_obj = obj.points[obj.points.length - 1].y
-                let x0_drag = this.state.dragable.points[0].x
-                let y0_drag = this.state.dragable.points[0].y
-                let xe_drag = this.state.dragable.points[this.state.dragable.points.length - 1].x
-                let ye_drag = this.state.dragable.points[this.state.dragable.points.length - 1].y
-                if ((Math.abs(xe_obj-x0_drag) < CONNECT_DIST) && (Math.abs(ye_obj-y0_drag)) < CONNECT_DIST) {
-                    return {obj: obj, side: 'left', type: "straight", points: [obj.points[obj.points.length - 1], this.state.dragable.points[0]]}
-                } else if ((Math.abs(x0_obj-xe_drag) < CONNECT_DIST) && (Math.abs(y0_obj-ye_drag)) < CONNECT_DIST) {
-                    return {obj: obj, side: 'right', type: "straight", points: [obj.points[0], this.state.dragable.points[this.state.dragable.points.length - 1]] }
-                } else if ((Math.abs(x0_obj-x0_drag) < CONNECT_DIST) && (Math.abs(y0_obj-y0_drag)) < CONNECT_DIST) {
-                    return {obj: obj, side: 'left', type: "reverse", points: [obj.points[0], this.state.dragable.points[0]]}
-                } else if ((Math.abs(xe_obj-xe_drag) < CONNECT_DIST) && (Math.abs(ye_obj-ye_drag)) < CONNECT_DIST) {
-                    return {obj: obj, side: 'right', type: "reverse", points: [obj.points[obj.points.length - 1], this.state.dragable.points[this.state.dragable.points.length - 1]] }
-                }
-        
+            }
         }
-        return null
-        
     }
 
     mdHandler = e => {
@@ -74,11 +45,35 @@ export class WithMoveObjs extends Component {
 
         this.CTM = document.getElementById('svg').getScreenCTM()
 
+
+        if (e.target.id && e.target.tagName === "circle" ) {
+            let elem_id = e.target.id
+            this.setState((prevState) => { 
+                return {
+                    ...prevState,
+                    dragable: null,
+                    dragable_point: this.get_point_href(elem_id)
+                }
+            })
+        }
+
         if (e.target.id && e.target.tagName === "path") {
-            this.set_state(e.target.id)
+            let elem_id = e.target.id
+            this.setState((prevState) => {
+                return {
+                    ...prevState,
+                    dragable: this.get_element_href(elem_id),
+                    dragable_point: null
+                }
+            })
             this.props.selectObj(e.target.id)
         } else {
-            this.set_state(null)
+            this.setState((prevState) => {
+                return {
+                    ...prevState,
+                    dragable: null,
+                }
+            })
             this.props.unSelectObj()
         }
 
@@ -90,14 +85,25 @@ export class WithMoveObjs extends Component {
     }
 
     mmHandler = e => {
-        let CTM = this.CTM
-        if (this.state.dragable && this.mouseDown) {
-            const detectConnection = this.detectConnection()
-            if (detectConnection) {
+        let CTM = this.CTM;
+        let detectConnectionResult = undefined;
+        if (this.state.dragable_point && this.mouseDown) {
+            this.props.moveObj(this.state.dragable_point.id, {x: getSvgCoordsX(e.clientX, CTM), y: getSvgCoordsY(e.clientY, CTM)})
+            console.log(this.state.dragable_point.owner)
+            detectConnectionResult = detectConnection(this.state.dragable_point.owner, this.props.objs)
+        }
+        if (!this.state.dragable_point && this.state.dragable && this.mouseDown) {
+            let realCord = getRealCoordsOffset(e.clientX, e.clientY, CTM, this.x0, this.y0)
+            this.props.shiftObj(this.state.dragable.id, {x: realCord.dx, y: realCord.dy})
+            detectConnectionResult = detectConnection(this.state.dragable, this.props.objs)
+        }
+        if (this.mouseDown && (this.state.dragable || this.state.dragable_point)) {
+            if (detectConnectionResult) {
+                console.log(detectConnectionResult)
                 this.setState((prevState) => {
                     return {
                         ...prevState,
-                        highlited_points: detectConnection.points
+                        highlited_points: detectConnectionResult.points
                     }
                 })
             } else {
@@ -108,37 +114,56 @@ export class WithMoveObjs extends Component {
                     }
                 })
             }
-            let realCord = getRealCoordsOffset(e.clientX, e.clientY, CTM, this.x0, this.y0)
-            this.props.shiftObj(this.state.dragable.id, {x: realCord.dx, y: realCord.dy})
         }
     }
 
     muHandler = e => {
-        if (this.state.dragable && this.mouseDown) {
+        let detectConnectionResult = undefined
+        if (!this.state.dragable_point && this.state.dragable && this.mouseDown) {
             let CTM = this.CTM
-            this.mouseDown = false
             let realCord = getRealCoordsOffset(e.clientX, e.clientY, CTM, this.x0, this.y0)
             console.log("MU", realCord)
-            const detectConnection = this.detectConnection()
-            if (detectConnection) {
+            if ((realCord.dx !==0 ) || (realCord.dy !== 0)) {
+                this.props.moveObj(this.state.dragable.id, {x: realCord.dx, y: realCord.dy})
+            }
+            detectConnectionResult = detectConnection(this.state.dragable, this.props.objs)
+        }
+        if (this.state.dragable_point) {
+            console.log(`Is same ${this.state.dragable_point.owner === this.props.objs[0]}`)
+            detectConnectionResult = detectConnection(this.state.dragable_point.owner, this.props.objs)
+            this.setState((prevState) => {
+                return { 
+                    ...prevState,
+                    dragable_point: null 
+                }
+            })
+        }
+        if ((this.state.dragable || this.state.dragable_point) && this.mouseDown) {
+            if (detectConnectionResult) {
                 this.setState((prevState) => {
                     return {
                         ...prevState,
                         highlited_points: null
                     }
                 })
-                if (detectConnection.side === 'left') {
-                    this.props.figure_connect(detectConnection.obj.id, this.state.dragable.id)
-                } else {
-                    this.props.figure_connect(this.state.dragable.id, detectConnection.obj.id)
+                console.log(detectConnectionResult)
+                switch(detectConnectionResult.type) {
+                    case "straight":
+                        this.props.figureConnect(detectConnectionResult.obj_left.id, detectConnectionResult.obj_right.id)
+                        break
+                    case "reverse":
+                        this.props.figureReverseConnect(detectConnectionResult.obj_left.id, detectConnectionResult.obj_right.id)
+                        break
+                    case "reverse_endside":
+                        this.props.figureReverseConnectR(detectConnectionResult.obj_left.id, detectConnectionResult.obj_right.id)
+                        break
+                    default:
+                        throw new Error("Wrong connection type")
                 }
-                return false
-            }
-            if ((realCord.dx !==0 ) || (realCord.dy !== 0)) {
-                this.props.moveObj(this.state.dragable.id, {x: realCord.dx, y: realCord.dy})
             }
         }
         console.log('mouseup')
+        this.mouseDown = false
     }
 
     render() {
@@ -169,7 +194,9 @@ const mapDispatchToProps = (dispatch) => {
         shiftObj: (id, offset) => dispatch(shiftObj(id, offset)),
         selectObj: (id) => dispatch(selectObj(id)),
         unSelectObj: () => dispatch(unselectObj()),
-        figure_connect: (id1, id2) => dispatch(figure_connect(id1, id2))
+        figureConnect: (id1, id2) => dispatch(figureConnect(id1, id2)),
+        figureReverseConnect: (id1, id2) => dispatch(figureReverseConnect(id1, id2)),
+        figureReverseConnectR: (id1, id2) => dispatch(figureReverseConnectR(id1, id2))
     }
 }
 

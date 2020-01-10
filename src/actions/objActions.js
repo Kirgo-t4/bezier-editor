@@ -1,4 +1,4 @@
-import { ADD_OBJ, MOVE, SHIFT, SELECT, UNSELECT, CONNECT } from "./types";
+import { ADD_OBJ, MOVE, SHIFT, SELECT, UNSELECT, CONNECT, REVERSE_CONNECT, REVERSE_CONNECT_ENDSIDE } from "./types";
 
 export const addObj = (type, obj) => {
     return {
@@ -37,6 +37,20 @@ export const unselectObj = (id) => {
 export const connect = (id1, id2) => {
     return {
         type: CONNECT,
+        payload: {id1, id2}
+    }
+}
+
+export const reverse_connect = (id1, id2) => {
+    return {
+        type: REVERSE_CONNECT,
+        payload: {id1, id2}
+    }
+}
+
+export const reverse_connect_endside = (id1, id2) => {
+    return {
+        type: REVERSE_CONNECT_ENDSIDE,
         payload: {id1, id2}
     }
 }

@@ -9,6 +9,8 @@ export const SHIFT = "SHIFT"
 export const SELECT = "SELECT"
 export const UNSELECT = "UNSELECT"
 export const CONNECT = "CONNECT"
+export const REVERSE_CONNECT = "REVERSE_CONNECT"
+export const REVERSE_CONNECT_ENDSIDE = "REVERSE_CONNECT_ENDSIDE"
 
 export const type_qcurve = "qcurve"
 export const type_ccurve = "ccurve"
@@ -103,4 +105,11 @@ export class Figure {
     get svgString() {
         throw new Error("this is abstract object")
     }
+
+    reverseFigure() {
+        console.log('reverseFigure')
+        const points = this.points.slice()
+        return new this.constructor(points.reverse())
+    }
+    
 }

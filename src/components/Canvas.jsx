@@ -5,7 +5,6 @@ import QCurve from "../figures/QCurve/QCurve";
 import CCurve from "../figures/CCurve/CCurve";
 import Complex from "../figures/Complex/Complex"
 import { type_qcurve, type_ccurve, type_point, type_complex } from "../actions/types";
-import WithMovePoints from "./WithMovePoints";
 import WithAddingNewFigure from "./WithAddingNewFigure";
 import WithMoveObjs from "./WithMoveObjs";
 import { unselectObj } from "../actions/objActions";
@@ -17,25 +16,18 @@ export class Canvas extends Component {
     constructor(props) {
         super(props)
         this.state = {
-            mode: "move_obj"
+            mode: "move_edit"
         }
     }
 
     btnMoveClick = (e) => {
-        this.setState({mode: "move_obj"})
-    }
-
-    btnEditClick = (e) => {
-        this.setState({mode: "move_points"})
-        this.props.unSelectObj()
+        this.setState({mode: "move_edit"})
     }
 
     currentState = (children) => {
         switch(this.state.mode) {
-            case 'move_obj': 
+            case 'move_edit': 
                 return (<WithMoveObjs children={children} />)
-            case 'move_points':
-                return (<WithMovePoints children={children} />)
             case 'add_qcurve':
                 const AddQ = AddQCurveHOC(WithAddingNewFigure)
                 return (<AddQ children={children}/>)
@@ -48,7 +40,6 @@ export class Canvas extends Component {
     }
 
     render() {
-        console.log(this.props.objs[0])
         return (
             <Fragment>
                 {this.currentState(
@@ -67,10 +58,7 @@ export class Canvas extends Component {
                             })
                 )}                
                 <button onClick={this.btnMoveClick}>
-                    move 
-                </button>
-                <button onClick={this.btnEditClick}>
-                    edit
+                    move &#38; edit
                 </button>
                 <button onClick={() => this.setState({mode: "add_qcurve"})}>
                     new Q Curve
