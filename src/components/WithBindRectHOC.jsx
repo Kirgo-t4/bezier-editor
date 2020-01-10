@@ -25,8 +25,8 @@ const WithBindRectHOC = (Figure) => {
                 return {
                     ...prevState,
                     offset_point0: {
-                        x: (areaObj.left - CTM.e) / CTM.a - this.props.points[0].x,
-                        y: (areaObj.top - CTM.f) / CTM.d - this.props.points[0].y,
+                        x: (areaObj.left - CTM.e) / CTM.a - this.props.obj.points[0].x,
+                        y: (areaObj.top - CTM.f) / CTM.d - this.props.obj.points[0].y,
                     },
                     width: areaObj.width / CTM.a,
                     height: areaObj.height / CTM.d,
@@ -39,10 +39,10 @@ const WithBindRectHOC = (Figure) => {
         }
 
         render() {
-            let points = this.props.points
+            let points = this.props.obj.points
             return (
                 <g>
-                    {this.props.selected && 
+                    {this.props.obj.selected && 
                     <TempRect 
                         startpoint={{x: points[0].x + this.state.offset_point0.x, y: points[0].y + this.state.offset_point0.y}} 
                         width={this.state.width}

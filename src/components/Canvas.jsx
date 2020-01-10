@@ -3,7 +3,8 @@ import { connect } from "react-redux";
 import Point from "../figures/Point/Point";
 import QCurve from "../figures/QCurve/QCurve";
 import CCurve from "../figures/CCurve/CCurve";
-import { type_qcurve, type_ccurve, type_point } from "../actions/types";
+import Complex from "../figures/Complex/Complex"
+import { type_qcurve, type_ccurve, type_point, type_complex } from "../actions/types";
 import WithMovePoints from "./WithMovePoints";
 import WithAddingNewFigure from "./WithAddingNewFigure";
 import WithMoveObjs from "./WithMoveObjs";
@@ -47,6 +48,7 @@ export class Canvas extends Component {
     }
 
     render() {
+        console.log(this.props.objs[0])
         return (
             <Fragment>
                 {this.currentState(
@@ -54,14 +56,16 @@ export class Canvas extends Component {
                                 if (obj.type === type_point) {
                                     return (<Point id={obj.id} x={obj.x} y={obj.y} key={obj.id} />)
                                 } else if (obj.type === type_qcurve) {
-                                    return (<QCurve id={obj.id} points={obj.points} key={obj.id} selected={obj.selected} />)
+                                    return (<QCurve obj={obj} key={obj.id} />)
                                 } else if (obj.type === type_ccurve) {
-                                    return (<CCurve id={obj.id} points={obj.points} key={obj.id} selected={obj.selected} />)
+                                    return (<CCurve obj={obj} key={obj.id} />)
+                                } else if (obj.type === type_complex) {
+                                    return (<Complex obj={obj} key={obj.id} />)
                                 } else {
                                     return false
                                 }
                             })
-                )}
+                )}                
                 <button onClick={this.btnMoveClick}>
                     move 
                 </button>

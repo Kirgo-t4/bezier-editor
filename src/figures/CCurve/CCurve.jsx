@@ -6,12 +6,13 @@ import WithBindRectHOC from "../../components/WithBindRectHOC";
 export class CCurve extends Component {
     
     render() {
-        let points = this.props.points
+        const obj = this.props.obj
+        const points = this.props.obj.points
         return (
             <Fragment>
                 <path ref="obj"
-                    id={this.props.id}
-                    d={`M${points[0].x} ${points[0].y} C ${points[1].x} ${points[1].y} ${points[2].x} ${points[2].y} ${points[3].x} ${points[3].y}`} 
+                    id={obj.id}
+                    d={obj.svgString} 
                     stroke="black" 
                     fill="transparent" 
                 />

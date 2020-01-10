@@ -8,17 +8,20 @@ export const MOVE = "MOVE"
 export const SHIFT = "SHIFT"
 export const SELECT = "SELECT"
 export const UNSELECT = "UNSELECT"
+export const CONNECT = "CONNECT"
 
 export const type_qcurve = "qcurve"
 export const type_ccurve = "ccurve"
 export const type_point = "point"
+export const type_complex = "complex"
 
 export class Point {
-    constructor(point) {
+    constructor(point, owner = null) {
         this.id = UUID.v4()
         this.type = type_point
         this._x = point.x
         this._y = point.y
+        this.owner = owner
         this._offset = {
             x: 0, y: 0
         }
@@ -66,7 +69,7 @@ export class Figure {
             x: 0, y: 0
         }
         this._points = points.map((point) => {
-            return new Point({x:point.x, y:point.y})
+            return new Point({x:point.x, y:point.y}, this)
         })
         this.selected = false
     }
@@ -95,5 +98,9 @@ export class Figure {
             point.move({x: point.x + dcords.x, y: point.y + dcords.y})
         })
         return this
+    }
+
+    get svgString() {
+        throw new Error("this is abstract object")
     }
 }
