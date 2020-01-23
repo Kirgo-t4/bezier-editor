@@ -16,6 +16,7 @@ export const type_qcurve = "qcurve"
 export const type_ccurve = "ccurve"
 export const type_point = "point"
 export const type_complex = "complex"
+export const type_arc = "arc"
 
 export class Point {
     constructor(point, owner = null) {

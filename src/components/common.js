@@ -15,7 +15,8 @@ export const getRealCoordsOffset = (x, y, CTM, offsetX, offsetY) => {
     }
 }
 
-export const detectConnection = (objDetectable, objects) => {
+export const detectConnectionArray = (objDetectable, objects) => {
+    const connectable = []
     for (let obj of objects) {
             if (obj === objDetectable) {
                 continue
@@ -29,16 +30,43 @@ export const detectConnection = (objDetectable, objects) => {
             let xe_drag = objDetectable.points[objDetectable.points.length - 1].x
             let ye_drag = objDetectable.points[objDetectable.points.length - 1].y
             if ((Math.abs(xe_obj-x0_drag) < CONNECT_DIST) && (Math.abs(ye_obj-y0_drag)) < CONNECT_DIST) {
-                return {obj_left: obj, obj_right: objDetectable, type: "straight", points: [obj.points[obj.points.length - 1], objDetectable.points[0]]}
+                connectable.push({obj_left: obj, obj_right: objDetectable, type: "straight", points: [obj.points[obj.points.length - 1], objDetectable.points[0]]})
             } else if ((Math.abs(x0_obj-xe_drag) < CONNECT_DIST) && (Math.abs(y0_obj-ye_drag)) < CONNECT_DIST) {
-                return {obj_left: objDetectable, obj_right: obj, type: "straight", points: [obj.points[0], objDetectable.points[objDetectable.points.length - 1]] }
+                connectable.push({obj_left: objDetectable, obj_right: obj, type: "straight", points: [obj.points[0], objDetectable.points[objDetectable.points.length - 1]] })
             } else if ((Math.abs(x0_obj-x0_drag) < CONNECT_DIST) && (Math.abs(y0_obj-y0_drag)) < CONNECT_DIST) {
-                return {obj_left: objDetectable, obj_right: obj, type: "reverse", points: [obj.points[0], objDetectable.points[0]]}
+                connectable.push({obj_left: objDetectable, obj_right: obj, type: "reverse", points: [obj.points[0], objDetectable.points[0]]})
             } else if ((Math.abs(xe_obj-xe_drag) < CONNECT_DIST) && (Math.abs(ye_obj-ye_drag)) < CONNECT_DIST) {
-                return {obj_left: objDetectable, obj_right: obj, type: "reverse_endside", points: [obj.points[obj.points.length - 1], objDetectable.points[objDetectable.points.length - 1]] }
+                connectable.push({obj_left: objDetectable, obj_right: obj, type: "reverse_endside", points: [obj.points[obj.points.length - 1], objDetectable.points[objDetectable.points.length - 1]] })
             }
     
     }
+    return connectable
+}
+
+export const detectConnection = (objDetectable, objects) => {
+    const connectable = detectConnectionArray(objDetectable, objects)
+    if (connectable.length > 0) {
+        return connectable[0]
+    }
     return null
-    
+}
+
+export const detectConnectionPoint = (pointDetectable, objects) => {
+    const detectConnectionResultArray = detectConnectionArray(pointDetectable.owner, objects)
+    let connectedResult = false
+    if (detectConnectionResultArray.length > 0) {
+        detectConnectionResultArray.forEach((detectConnectionResult) => {
+            detectConnectionResult.points.forEach((point) => {
+                if (point === pointDetectable) {
+                    console.log("yes it's that point")
+                    connectedResult = detectConnectionResult
+                }
+            })
+        })
+
+    }
+    if (connectedResult) {
+        return connectedResult
+    }
+    return null
 }

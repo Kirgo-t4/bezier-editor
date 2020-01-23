@@ -3,8 +3,9 @@ import { connect } from "react-redux";
 import Point from "../figures/Point/Point";
 import QCurve from "../figures/QCurve/QCurve";
 import CCurve from "../figures/CCurve/CCurve";
-import Complex from "../figures/Complex/Complex"
-import { type_qcurve, type_ccurve, type_point, type_complex } from "../actions/types";
+import Complex from "../figures/Complex/Complex";
+import Arc from "../figures/Arc/Arc"
+import { type_qcurve, type_ccurve, type_point, type_complex, type_arc } from "../actions/types";
 import WithAddingNewFigure from "./WithAddingNewFigure";
 import WithMoveObjs from "./WithMoveObjs";
 import { unselectObj } from "../actions/objActions";
@@ -52,6 +53,8 @@ export class Canvas extends Component {
                                     return (<CCurve obj={obj} key={obj.id} />)
                                 } else if (obj.type === type_complex) {
                                     return (<Complex obj={obj} key={obj.id} />)
+                                } else if (obj.type === type_arc) {
+                                    return (<Arc obj={obj} key={obj.id} />)
                                 } else {
                                     return false
                                 }

@@ -1,12 +1,14 @@
 import { ADD_OBJ, MOVE, SHIFT, SELECT, UNSELECT, CONNECT, REVERSE_CONNECT, REVERSE_CONNECT_ENDSIDE } from "../actions/types";
 import { Curve as QCurve } from "../figures/QCurve/type";
 import { Curve as CCurve } from "../figures/CCurve/type";
+import { Arc } from "../figures/Arc/type";
 import { Complex } from "../figures/Complex/type"
 
 const initialState = {
     objs: [
         new QCurve([{x:5, y:180},{x:100, y:10},{x:180, y:140}]),
-        new CCurve([{x:180, y:143},{x: 180, y: 80},{x: 300, y: 100},{x: 300, y: 250}])
+        new CCurve([{x:180, y:143},{x: 180, y: 80},{x: 300, y: 100},{x: 300, y: 250}]),
+        new Arc([{x:5, y:380},{x:100, y:310},{x:200, y:400}])
     ]
 }
 

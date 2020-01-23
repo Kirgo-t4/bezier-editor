@@ -2,7 +2,7 @@ import React, { Component } from 'react'
 import { connect } from "react-redux";
 import { moveObj, shiftObj, selectObj, unselectObj, connect as figureConnect, reverse_connect as figureReverseConnect,
      reverse_connect_endside as figureReverseConnectR} from "../actions/objActions";
-import { getSvgCoordsX, getSvgCoordsY, getRealCoordsOffset, detectConnection } from "./common";
+import { getSvgCoordsX, getSvgCoordsY, getRealCoordsOffset, detectConnection, detectConnectionPoint } from "./common";
 import SVG from "./SVG"
 
 export class WithMoveObjs extends Component {
@@ -90,7 +90,7 @@ export class WithMoveObjs extends Component {
         if (this.state.dragable_point && this.mouseDown) {
             this.props.moveObj(this.state.dragable_point.id, {x: getSvgCoordsX(e.clientX, CTM), y: getSvgCoordsY(e.clientY, CTM)})
             console.log(this.state.dragable_point.owner)
-            detectConnectionResult = detectConnection(this.state.dragable_point.owner, this.props.objs)
+            detectConnectionResult = detectConnectionPoint(this.state.dragable_point, this.props.objs)
         }
         if (!this.state.dragable_point && this.state.dragable && this.mouseDown) {
             let realCord = getRealCoordsOffset(e.clientX, e.clientY, CTM, this.x0, this.y0)
@@ -130,7 +130,7 @@ export class WithMoveObjs extends Component {
         }
         if (this.state.dragable_point) {
             console.log(`Is same ${this.state.dragable_point.owner === this.props.objs[0]}`)
-            detectConnectionResult = detectConnection(this.state.dragable_point.owner, this.props.objs)
+            detectConnectionResult = detectConnectionPoint(this.state.dragable_point, this.props.objs)
             this.setState((prevState) => {
                 return { 
                     ...prevState,
