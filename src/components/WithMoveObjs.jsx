@@ -40,9 +40,6 @@ export class WithMoveObjs extends Component {
 
     mdHandler = e => {
 
-        console.log(e.target.id)
-        console.log(document.getElementById('svg').getScreenCTM())
-
         this.CTM = document.getElementById('svg').getScreenCTM()
 
 
@@ -89,7 +86,6 @@ export class WithMoveObjs extends Component {
         let detectConnectionResult = undefined;
         if (this.state.dragable_point && this.mouseDown) {
             this.props.moveObj(this.state.dragable_point.id, {x: getSvgCoordsX(e.clientX, CTM), y: getSvgCoordsY(e.clientY, CTM)})
-            console.log(this.state.dragable_point.owner)
             detectConnectionResult = detectConnectionPoint(this.state.dragable_point, this.props.objs)
         }
         if (!this.state.dragable_point && this.state.dragable && this.mouseDown) {
@@ -99,7 +95,6 @@ export class WithMoveObjs extends Component {
         }
         if (this.mouseDown && (this.state.dragable || this.state.dragable_point)) {
             if (detectConnectionResult) {
-                console.log(detectConnectionResult)
                 this.setState((prevState) => {
                     return {
                         ...prevState,
@@ -122,14 +117,12 @@ export class WithMoveObjs extends Component {
         if (!this.state.dragable_point && this.state.dragable && this.mouseDown) {
             let CTM = this.CTM
             let realCord = getRealCoordsOffset(e.clientX, e.clientY, CTM, this.x0, this.y0)
-            console.log("MU", realCord)
             if ((realCord.dx !==0 ) || (realCord.dy !== 0)) {
                 this.props.moveObj(this.state.dragable.id, {x: realCord.dx, y: realCord.dy})
             }
             detectConnectionResult = detectConnection(this.state.dragable, this.props.objs)
         }
         if (this.state.dragable_point) {
-            console.log(`Is same ${this.state.dragable_point.owner === this.props.objs[0]}`)
             detectConnectionResult = detectConnectionPoint(this.state.dragable_point, this.props.objs)
             this.setState((prevState) => {
                 return { 
@@ -146,7 +139,6 @@ export class WithMoveObjs extends Component {
                         highlited_points: null
                     }
                 })
-                console.log(detectConnectionResult)
                 switch(detectConnectionResult.type) {
                     case "straight":
                         this.props.figureConnect(detectConnectionResult.obj_left.id, detectConnectionResult.obj_right.id)

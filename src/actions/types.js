@@ -82,14 +82,14 @@ export class Figure {
     }
 
     setOffset = (offset) => {
-        this._points.forEach((point) => {
+        this.points.forEach((point) => {
             point.setOffset(offset)
         })
         return this
     }
 
     clearOffset = (offset) => {
-        this._points.forEach((point) => {
+        this.points.forEach((point) => {
             point.clearOffset()
         })
         return this
@@ -97,7 +97,7 @@ export class Figure {
 
     move = (dcords) => {
         this.clearOffset()
-        this._points.forEach((point) => {
+        this.points.forEach((point) => {
             point.move({x: point.x + dcords.x, y: point.y + dcords.y})
         })
         return this

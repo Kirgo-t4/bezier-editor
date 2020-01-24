@@ -58,7 +58,6 @@ export const detectConnectionPoint = (pointDetectable, objects) => {
         detectConnectionResultArray.forEach((detectConnectionResult) => {
             detectConnectionResult.points.forEach((point) => {
                 if (point === pointDetectable) {
-                    console.log("yes it's that point")
                     connectedResult = detectConnectionResult
                 }
             })
