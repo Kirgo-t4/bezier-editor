@@ -42,8 +42,7 @@ export class WithMoveObjs extends Component {
 
         this.CTM = document.getElementById('svg').getScreenCTM()
 
-
-        if (e.target.id && e.target.tagName === "circle" ) {
+        if (e.target.id && e.target.getAttribute("data-type") === "point" ) {
             let elem_id = e.target.id
             this.setState((prevState) => { 
                 return {

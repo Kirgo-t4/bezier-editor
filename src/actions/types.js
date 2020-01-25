@@ -107,6 +107,10 @@ export class Figure {
         throw new Error("this is abstract object")
     }
 
+    get helpLines() {
+        return []
+    }
+
     reverseFigure() {
         console.log('reverseFigure')
         const points = this.points.slice()
