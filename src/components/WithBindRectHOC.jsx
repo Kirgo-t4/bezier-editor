@@ -13,6 +13,7 @@ const WithBindRectHOC = (Figure) => {
                 },
                 width: 0,
                 height: 0,
+                wasSelected: false,
             }
         }
     
@@ -36,6 +37,18 @@ const WithBindRectHOC = (Figure) => {
     
         componentDidMount() {
             this.updateSurRect()
+        }
+
+        componentWillUpdate() {
+            if (this.props.obj.selected !== this.state.wasSelected) {
+                this.updateSurRect()
+                this.setState((prevState) => {
+                    return {
+                        ...prevState,
+                        wasSelected: this.props.obj.selected
+                    }
+                })
+            }
         }
 
         render() {
