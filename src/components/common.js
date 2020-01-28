@@ -1,4 +1,5 @@
 const CONNECT_DIST = 5;
+const MIN_COUNT_OF_POINTS_TO_CLOSE_OBJECT = 4;
 
 export const getSvgCoordsX = (x, CTM) => {
     return (x - CTM.e) / CTM.a
@@ -67,5 +68,31 @@ export const detectConnectionPoint = (pointDetectable, objects) => {
     if (connectedResult) {
         return connectedResult
     }
+
+    const selfDetetctConnectionResult = detectSelfConnection(pointDetectable)
+
+    if (selfDetetctConnectionResult) {
+        return selfDetetctConnectionResult[0]
+    }
     return null
+}
+
+
+export const detectSelfConnection = (pointDetectable) => {
+    const owner = pointDetectable.owner
+    if (!(pointDetectable.owner.points[0] === pointDetectable) && !(pointDetectable.owner.points[pointDetectable.owner.points.length - 1] === pointDetectable)) {
+        return null
+    }
+
+    if (owner.points.length < MIN_COUNT_OF_POINTS_TO_CLOSE_OBJECT) {
+        return null
+    }
+
+    const points = [pointDetectable.owner.points[0], pointDetectable.owner.points[pointDetectable.owner.points.length - 1]]
+    const connectable = []
+
+    if ((Math.abs(points[0].x - points[1].x) < CONNECT_DIST) && (Math.abs(points[0].y - points[1].y) < CONNECT_DIST)) {
+        connectable.push({ obj_left: owner, obj_right: owner, type: "self", points })
+    }
+    return connectable
 }

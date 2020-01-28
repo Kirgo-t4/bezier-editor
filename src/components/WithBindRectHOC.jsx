@@ -39,7 +39,7 @@ const WithBindRectHOC = (Figure) => {
             this.updateSurRect()
         }
 
-        componentWillUpdate() {
+        UNSAFE_componentWillUpdate() {
             if (this.props.obj.selected !== this.state.wasSelected) {
                 this.updateSurRect()
                 this.setState((prevState) => {

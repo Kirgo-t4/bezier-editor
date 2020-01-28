@@ -6,6 +6,7 @@ import WithMoveObjs from "./WithMoveObjs";
 import { unselectObj } from "../actions/objActions";
 import AddQCurveHOC from "../figures/QCurve/AddQCurveHOC";
 import AddCCurveHOC from "../figures/CCurve/AddCCurveHOC";
+import CoordGrid from "./CoordGrid";
 
 export class Canvas extends Component {
 
@@ -39,9 +40,14 @@ export class Canvas extends Component {
         return (
             <Fragment>
                 {this.currentState(
-                            this.props.objs.map(obj => 
-                                <Figure obj={obj} key={obj.id} />
-                            )
+                        <Fragment>
+                            <CoordGrid maxX={500} maxY={500} stepX={20} stepY={20} />
+                            {
+                                this.props.objs.map(obj => 
+                                    <Figure helpLines={true} obj={obj} key={obj.id} />
+                                )
+                            }
+                        </Fragment>
                 )}                
                 <button onClick={this.btnMoveClick}>
                     move &#38; edit

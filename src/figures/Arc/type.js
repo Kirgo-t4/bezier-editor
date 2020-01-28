@@ -14,7 +14,6 @@ export class Arc extends Figure {
         let b = Math.sqrt(Math.pow(points[2].x - points[1].x, 2) + Math.pow(points[2].y- points[1].y, 2))
         let c = Math.sqrt(Math.pow(points[0].x - points[2].x, 2) + Math.pow(points[0].y- points[2].y, 2))
         let p = (a + b + c) / 2
-        console.log("in arc", points)
         return (a * b * c) / (4 * Math.sqrt(p * (p - a) * (p - b) * (p - c)))
     }
 

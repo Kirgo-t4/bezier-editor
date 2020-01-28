@@ -11,12 +11,14 @@ export const UNSELECT = "UNSELECT"
 export const CONNECT = "CONNECT"
 export const REVERSE_CONNECT = "REVERSE_CONNECT"
 export const REVERSE_CONNECT_ENDSIDE = "REVERSE_CONNECT_ENDSIDE"
+export const SELF_CONNECT = "SELF_CONNECT"
 
 export const type_qcurve = "qcurve"
 export const type_ccurve = "ccurve"
 export const type_point = "point"
 export const type_complex = "complex"
 export const type_arc = "arc"
+export const type_line = "line"
 
 export class Point {
     constructor(point, owner = null) {
@@ -88,7 +90,7 @@ export class Figure {
         return this
     }
 
-    clearOffset = (offset) => {
+    clearOffset = () => {
         this.points.forEach((point) => {
             point.clearOffset()
         })
@@ -104,7 +106,7 @@ export class Figure {
     }
 
     get svgString() {
-        throw new Error("this is abstract object")
+        throw new Error("this is an abstract object")
     }
 
     get helpLines() {

@@ -1,7 +1,7 @@
 import React, { Component } from 'react'
 import { connect } from "react-redux";
 import { moveObj, shiftObj, selectObj, unselectObj, connect as figureConnect, reverse_connect as figureReverseConnect,
-     reverse_connect_endside as figureReverseConnectR} from "../actions/objActions";
+     reverse_connect_endside as figureReverseConnectR, self_connect} from "../actions/objActions";
 import { getSvgCoordsX, getSvgCoordsY, getRealCoordsOffset, detectConnection, detectConnectionPoint } from "./common";
 import SVG from "./SVG"
 
@@ -93,6 +93,7 @@ export class WithMoveObjs extends Component {
             detectConnectionResult = detectConnection(this.state.dragable, this.props.objs)
         }
         if (this.mouseDown && (this.state.dragable || this.state.dragable_point)) {
+            console.log(detectConnectionResult)
             if (detectConnectionResult) {
                 this.setState((prevState) => {
                     return {
@@ -148,6 +149,9 @@ export class WithMoveObjs extends Component {
                     case "reverse_endside":
                         this.props.figureReverseConnectR(detectConnectionResult.obj_left.id, detectConnectionResult.obj_right.id)
                         break
+                    case "self":
+                        this.props.figureSelfConnect(detectConnectionResult.obj_left.id)
+                        break
                     default:
                         throw new Error("Wrong connection type")
                 }
@@ -187,7 +191,8 @@ const mapDispatchToProps = (dispatch) => {
         unSelectObj: () => dispatch(unselectObj()),
         figureConnect: (id1, id2) => dispatch(figureConnect(id1, id2)),
         figureReverseConnect: (id1, id2) => dispatch(figureReverseConnect(id1, id2)),
-        figureReverseConnectR: (id1, id2) => dispatch(figureReverseConnectR(id1, id2))
+        figureReverseConnectR: (id1, id2) => dispatch(figureReverseConnectR(id1, id2)),
+        figureSelfConnect: (id) => dispatch(self_connect(id))
     }
 }
 

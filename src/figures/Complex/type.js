@@ -56,3 +56,7 @@ export class Complex extends Figure {
         return this._figure1.points.concat(this._figure2.points.slice(1))
     }
 }
+
+export const makeComplexWithCheckClosed = (fig1, fig2) => {
+    return [new Complex(fig1, fig2)]
+}
