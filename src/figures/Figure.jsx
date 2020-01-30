@@ -6,10 +6,8 @@ import WithBindRectHOC from "./../components/WithBindRectHOC";
 export class Figure extends Component {
     
     render() {
-        console.log(this.props.obj)
         const obj = this.props.obj
         const points = this.props.obj.points
-        console.log(points)
         return (
             <Fragment>
                 <path ref="obj"

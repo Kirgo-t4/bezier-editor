@@ -1,5 +1,4 @@
-const CONNECT_DIST = 5;
-const MIN_COUNT_OF_POINTS_TO_CLOSE_OBJECT = 4;
+import { CONNECT_DIST, MIN_COUNT_OF_POINTS_TO_CLOSE_OBJECT } from "./const";
 
 export const getSvgCoordsX = (x, CTM) => {
     return (x - CTM.e) / CTM.a

@@ -1,4 +1,4 @@
-import { ADD_OBJ, MOVE, SHIFT, SELECT, UNSELECT, CONNECT, REVERSE_CONNECT, REVERSE_CONNECT_ENDSIDE, SELF_CONNECT } from "./types";
+import { ADD_OBJ, MOVE, MOVE_ALL, SHIFT, SELECT, UNSELECT, CONNECT, REVERSE_CONNECT, REVERSE_CONNECT_ENDSIDE, SELF_CONNECT } from "./types";
 
 export const addObj = (type, obj) => {
     return {
@@ -11,6 +11,13 @@ export const moveObj = (id, coords) => {
     return {
         type: MOVE,
         payload: { id, coords }
+    }
+}
+
+export const moveAll = (coords) => {
+    return {
+        type: MOVE_ALL,
+        payload: { coords } 
     }
 }
 
