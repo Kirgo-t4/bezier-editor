@@ -1,4 +1,5 @@
-import { Figure, type_complex } from "../../actions/types";
+import { type_complex } from "../../const";
+import { Figure } from "../../actions/types";
 
 
 export class Complex extends Figure {

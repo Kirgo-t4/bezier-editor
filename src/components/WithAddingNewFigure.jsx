@@ -4,6 +4,7 @@ import { addObj } from "../actions/objActions";
 import TempRect from "./TempRect";
 import { getSvgCoordsX, getSvgCoordsY } from "./common";
 import SVG from "./SVG"
+import { CHANGE_MODE, MODE, MIN_DIST_FOR_ADDING_FIGURE } from "../const";
 
 export class WithAddingNewFigure extends Component {
 
@@ -65,10 +66,10 @@ export class WithAddingNewFigure extends Component {
 
     muHandler = e => {
         let { startpoint, endpoint } = this.state
-        if (startpoint.x !== endpoint.x || startpoint.y !== endpoint.y) {
+        if (Math.abs(startpoint.x - endpoint.x) > MIN_DIST_FOR_ADDING_FIGURE || Math.abs(startpoint.y - endpoint.y) > MIN_DIST_FOR_ADDING_FIGURE) {
             let newCurve = this.props.newFigure(startpoint, endpoint)
             this.props.addCurve(this.props.type, newCurve)
-            console.log(newCurve)
+            this.props.changeMode()
         }
         this.setState({ 
             dragable: null,
@@ -93,7 +94,8 @@ export class WithAddingNewFigure extends Component {
 
 const mapDispatchToProps = (dispatch) => {
     return {
-        addCurve: (type,point) => dispatch(addObj(type, point))
+        addCurve: (type,point) => dispatch(addObj(type, point)),
+        changeMode: () => dispatch({type: CHANGE_MODE, payload: MODE.MOVE})
     }
 }
 

@@ -1,4 +1,4 @@
-import { RESIZE_SVG, MODE, CHANGE_MODE } from "../actions/types";
+import { RESIZE_SVG, MODE, CHANGE_MODE, TOGGLE_GRID } from "../const";
 
 const initialState = {
     size: {
@@ -6,6 +6,7 @@ const initialState = {
         y: 500,
     },
     mode: MODE.MOVE,
+    show_coordinate_grid: true,
 }
 
 export default (state = initialState, action) => {
@@ -22,6 +23,11 @@ export default (state = initialState, action) => {
             return {
                 ...state,
                 mode: action.payload
+            }
+        case TOGGLE_GRID:
+            return {
+                ...state,
+                show_coordinate_grid: !state.show_coordinate_grid
             }
         default:
             return {

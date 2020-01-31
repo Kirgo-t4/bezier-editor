@@ -6,9 +6,11 @@ import WithMoveObjs from "./WithMoveObjs";
 
 import AddQCurveHOC from "../figures/QCurve/AddQCurveHOC";
 import AddCCurveHOC from "../figures/CCurve/AddCCurveHOC";
+import AddArcHOC from "../figures/Arc/AddArcHOC";
+import AddLineHOC from "../figures/Line/AddLineHOC";
 import CoordGrid from "./CoordGrid";
 
-import { MODE } from "../actions/types";
+import { MODE } from "../const";
 
 const Canvas = (props) => {
 
@@ -22,6 +24,12 @@ const Canvas = (props) => {
             case MODE.ADD_CCURVE:
                 const AddC = AddCCurveHOC(WithAddingNewFigure)
                 return (<AddC children={children}/>)
+            case MODE.ADD_ARC:
+                const AddArc = AddArcHOC(WithAddingNewFigure)
+                return (<AddArc children={children}/>)
+            case MODE.ADD_LINE:
+                const AddLine = AddLineHOC(WithAddingNewFigure)
+                return (<AddLine children={children}/>)
             default:
                 throw new Error()
         }
@@ -31,7 +39,9 @@ const Canvas = (props) => {
         <Fragment>
             {currentState(
                     <Fragment>
-                        <CoordGrid maxX={props.svg_size.x} maxY={props.svg_size.y} stepX={20} stepY={20} />
+                        {
+                            props.show_grid && <CoordGrid maxX={props.svg_size.x} maxY={props.svg_size.y} stepX={20} stepY={20} />
+                        }
                         {
                             props.objs.map(obj => 
                                 <Figure helpLines={true} obj={obj} key={obj.id} />
@@ -39,8 +49,6 @@ const Canvas = (props) => {
                         }
                     </Fragment>
             )}                
-            
-            <h2>{props.mode}</h2>
         </Fragment>       
     )
 }
@@ -50,6 +58,7 @@ const mapStateToProps = (state) => {
         objs: state.objs.objs,
         svg_size: state.svg.size,
         mode: state.svg.mode,
+        show_grid: state.svg.show_coordinate_grid,
     }
 }
 

@@ -93,7 +93,6 @@ export class WithMoveObjs extends Component {
             detectConnectionResult = detectConnection(this.state.dragable, this.props.objs)
         }
         if (this.mouseDown && (this.state.dragable || this.state.dragable_point)) {
-            console.log(detectConnectionResult)
             if (detectConnectionResult) {
                 this.setState((prevState) => {
                     return {
@@ -157,7 +156,6 @@ export class WithMoveObjs extends Component {
                 }
             }
         }
-        console.log('mouseup')
         this.mouseDown = false
     }
 

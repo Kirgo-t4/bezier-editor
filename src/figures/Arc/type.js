@@ -1,5 +1,5 @@
 import { Figure } from "../../actions/types";
-import { type_arc } from "../../actions/types";
+import { type_arc } from "../../const";
 
 export class Arc extends Figure {
     constructor(points) {

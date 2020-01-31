@@ -1,5 +1,5 @@
 import { Figure } from "../../actions/types";
-import { type_line } from "../../actions/types";
+import { type_line } from "../../const";
 
 export class Line extends Figure {
     constructor(points) {

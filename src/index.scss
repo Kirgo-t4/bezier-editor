@@ -1,4 +1,16 @@
-$bg-color: #fff;
+$bg-color: #f3f3f3;
+$bg-menu-color: #63c319;
+$bg-menu-button: #dcd253;
+$menu-btn-color: #3f4441;
+$bg-active-button: #f4ff52;
+
+$base-font-size: 16px;
+
+* {
+  margin: 0;
+  padding: 0;
+  font-weight: normal;
+}
 
 html, body {
   height: 100%;
@@ -8,14 +20,14 @@ body {
   margin: 0;
   background: $bg-color;
   box-sizing: border-box;
+  font-family: Arial, Helvetica, sans-serif;
+  font-size: $base-font-size;
+  height: 100vh;
+  overflow: hidden;
 }
 
 #root, .App {
   height: 100%;
-}
-
-.canvas-wrapper {
-  height: 80%;
 }
 
 svg {
@@ -23,4 +35,161 @@ svg {
   height: 80vh;
   border: 1px dashed #000;
   margin: 0 auto;
+  border: none;
+  overflow: hidden;
 }
+
+.container {
+  width: 80vw;
+  margin: 0 auto;
+  display: flex;
+  flex-direction: row;
+  justify-content: space-between;
+}
+
+.inner-container {
+  display: flex;
+  flex-direction: row;
+  justify-content: center;
+}
+
+.menu {
+  display: flex;
+  flex-direction: column;
+  width: 200px;
+  margin-right: 60px;
+  color: #2b2b2b;
+  background: $bg-menu-color;
+  border-radius: 10px;
+  padding: 20px;
+  box-shadow: 5px 4px 0px #e4e4e4;
+}
+
+.menu__button {
+  width: 100px;
+  height: 60px;
+  margin: 5px auto;
+  border-radius: 10%;
+  border: none;
+  background: $bg-menu-button;
+  box-shadow: 1px 1px 4px #615e3c;
+  cursor: pointer;
+  transition: background 0.8s ease;
+
+  svg {
+    stroke: $menu-btn-color;
+    fill: $menu-btn-color;
+    stroke-width: 5;
+  }
+
+  &:hover {
+    background: $bg-active-button;
+
+    svg {
+      stroke: #000;
+      fill: #000;
+    }
+  }
+}
+
+.menu__active-button {
+  background: $bg-active-button;
+  box-shadow: inset 2px 2px 3px 0px #8c8a77;
+}
+
+.menu__sub-buttons {
+  display: flex;
+  flex-direction: row;
+  justify-content: center;
+  background: $bg-menu-color;
+
+  button {
+    background: inherit;
+    border: none;
+    font-size: 2rem;
+    cursor: pointer;
+  }
+}
+
+.menu__sub-block {
+  margin-bottom: 50px;
+  text-align: center;
+  display: flex;
+  flex-direction: column;
+
+  h3 {
+    text-decoration: underline;
+    text-transform: uppercase;
+    margin-bottom: 5px;
+    font-weight: bold;
+  }
+
+  p {
+    background: #c9f5a0;
+    padding: 3px;
+    margin: 2px 20px;
+    border-radius: 2px;
+  }
+}
+
+.menu__buttons-group {
+  width: 100%;
+
+  .menu__button {
+    width: 60px;
+    margin: 5px;
+  }
+  
+}
+
+.canvas-wrapper {
+  box-shadow: 5px 4px 0px #e4e4e4;
+  border: 5px solid $bg-menu-color;
+  border-radius: 10px;
+}
+
+
+.header {
+  width: 100%;
+  height: 50px;
+  background: $bg-menu-color;
+  margin-bottom: 10px;
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+
+  img {
+    height: 44px;
+    margin-top: 4px;
+  }
+  
+  h1 {
+    text-align: center;
+    margin: 0 auto;
+    font-size: 1.7rem;
+    color: #0a0c0b;
+    text-transform: capitalize;
+  }
+
+  svg {
+    height: 50px;
+    width: 100px;
+    margin: 0;
+  }
+}
+
+.header__main-wrapper {
+  display: flex;
+  flex-direction: row;
+  justify-content: center;
+  width: 90%;
+}
+
+.header-inner-wrapper {
+  display: flex;
+  flex-direction: row;
+  justify-content: center;
+  text-align: center;
+  align-items: center;
+}
+

@@ -1,5 +1,5 @@
 import { Figure } from "../../actions/types";
-import { type_ccurve } from "../../actions/types";
+import { type_ccurve } from "../../const";
 
 export class Curve extends Figure {
     constructor(points) {

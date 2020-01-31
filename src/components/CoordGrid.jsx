@@ -5,7 +5,6 @@ const CoordGrid = (props) => {
     const { maxX, maxY, stepX, stepY } = props
     const countX = Math.floor(maxX/stepX)
     const countY = Math.floor(maxY/stepY)
-    console.log(props)
     return (
         <g>
             {

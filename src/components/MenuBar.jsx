@@ -1,19 +1,48 @@
 import { connect } from "react-redux";
-import React, { Component } from 'react'
+import React from 'react'
 
-import { CHANGE_MODE, MODE } from "../actions/types";
+import { CHANGE_MODE, MODE } from "../const";
 
 import { resizeSvg } from "../actions/svgActions";
 import { moveAll } from "../actions/objActions";
-import { SCALE_STEP } from "./const";
+import { SCALE_STEP, TOGGLE_GRID } from "../const";
+import "@fortawesome/fontawesome-free/css/fontawesome.min.css"
+import "@fortawesome/fontawesome-free/css/regular.min.css"
+import "@fortawesome/fontawesome-free/css/solid.min.css"
 
 
 
-class MenuBar extends Component {
-    render() {
-        return (
-            <div>
-                <button onClick={() => { this.props.changeMode(MODE.MOVE)}}>
+const MenuBar = (props) => {
+
+    const increaseScale = () => {
+        const dSize = {
+            x: props.svg_size.x - SCALE_STEP.x,
+            y: props.svg_size.y - SCALE_STEP.y,
+        }
+
+        if ((dSize.x > SCALE_STEP.x * 2) && (dSize.y > SCALE_STEP.y * 2)) {
+            props.resizeSvg(dSize)
+            props.moveAll({x: (SCALE_STEP.x / -2), y: (SCALE_STEP.y / -2)})
+        }
+    }
+
+    const decreaseScale = () => {
+        const dSize = {
+            x: props.svg_size.x + SCALE_STEP.x,
+            y: props.svg_size.y + SCALE_STEP.y,
+        }
+
+        if ((dSize.x < SCALE_STEP.x * 40) && (dSize.y < SCALE_STEP.y * 40)) {
+            props.resizeSvg(dSize)
+            props.moveAll({x: SCALE_STEP.x / 2, y: SCALE_STEP.y /2})
+        }
+    }
+
+    return (
+        <nav className="menu">
+            <div className="menu__sub-block">
+                <h3>Редактировать</h3>
+                <button className={'menu__button' + (props.current_mode === MODE.MOVE ? " menu__active-button" : "") } onClick={() => { props.changeMode(MODE.MOVE)}}>
                     <svg version="1.1" viewBox="0 0 297 297" style={{width: '50px', height: '50px' }}>
                         <g>
                             <path d="M142.131,200.933l34.909-20.166c3.275-1.892,5.181-5.488,4.908-9.261c-0.271-3.772-2.676-7.058-6.188-8.459L13.531,98.336
@@ -37,61 +66,79 @@ class MenuBar extends Component {
                         </g>
                     </svg>
                 </button>
-                <button onClick={() => { this.props.changeMode(MODE.ADD_QCURVE)}}>
-                    <svg version="1.1" viewBox="0 0 500 500" style={{width: '50px', height: '50px' }}>
+            </div>
+            <div className="menu__sub-block">
+                <h3>Добавить</h3>
+                <div className="menu__buttons-group">
+                    <button className={"menu__button" + (props.current_mode === MODE.ADD_QCURVE ? " menu__active-button" : "")} 
+                        onClick={() => { props.changeMode(MODE.ADD_QCURVE)}}>
+                        <svg version="1.1" viewBox="0 0 200 200" style={{width: '50px', height: '50px' }}>
+                            <g>
+                                <path d="M26 183 Q 142 -90 166 183" fill="transparent" strokeWidth="10"/>
+                            </g>
+                        </svg>
+                    </button>
+                    <button className={"menu__button" + (props.current_mode === MODE.ADD_CCURVE ? " menu__active-button" : "")} 
+                        onClick={() => { props.changeMode(MODE.ADD_CCURVE)}}>
+                        <svg version="1.1" viewBox="0 0 200 200" style={{width: '50px', height: '50px' }}>
+                            <g>
+                                <path d="M52 150 C -44 -27 300 6 127 132" fill="transparent" strokeWidth="10"/>
+                            </g>
+                        </svg>
+                    </button>
+                </div>
+                <div className="menu__buttons-group">
+                    <button className={"menu__button" + (props.current_mode === MODE.ADD_ARC ? " menu__active-button" : "")} 
+                        onClick={() => { props.changeMode(MODE.ADD_ARC)}}>
+                        <svg version="1.1" viewBox="0 0 200 200" style={{width: '50px', height: '50px' }}>
+                            <g>
+                                <path d="M74 190 A 80 80 0 1 1 140 190" fill="transparent" strokeWidth="10"/>
+                            </g>
+                        </svg>
+                    </button>
+                    <button className={"menu__button" + (props.current_mode === MODE.ADD_LINE ? " menu__active-button" : "")} onClick={() => { props.changeMode(MODE.ADD_LINE)}}>
+                        <svg version="1.1" viewBox="0 0 200 200" style={{width: '50px', height: '50px' }}>
+                            <g>
+                                <path d="M10 190 L 190 10" fill="transparent" strokeWidth="10"/>
+                            </g>
+                        </svg>
+                    </button>
+                </div>
+            </div>
+            <div className="menu__sub-block">                
+                <h3>Масштаб</h3>
+                <p>{props.svg_size.x}п <i className="fas fa-times"></i> {props.svg_size.y}п</p>
+                <div className="menu__sub-buttons">
+                    <button className="scale-button" onClick={increaseScale}>
+                        <i className="fas fa-search-plus"></i>
+                    </button>
+                    <button className="scale-button" onClick={decreaseScale}>
+                        <i className="fas fa-search-minus"></i>
+                    </button>
+                </div>
+            </div>
+            <div className="menu__sub-block">
+                <h3>Координатная сетка</h3>
+                <button className={"menu__button" + (props.show_grid ? " menu__active-button" : "")} onClick={ props.toggleGrid }>
+                    <svg version="1.1" viewBox="0 0 100 100" style={{width: '50px', height: '50px' }}>
                         <g>
-                            <path d="M26 483 Q 242 -180 466 429" stroke="black" fill="transparent" strokeWidth="33"/>
+                            <path d="M0 20 H100" />
+                            <path d="M0 80 H100" />
+                            <path d="M20 0 V100" />
+                            <path d="M80 0 V100" />
                         </g>
                     </svg>
-                </button>
-                <button onClick={() => { this.props.changeMode(MODE.ADD_CCURVE)}}>
-                    <svg version="1.1" viewBox="0 0 500 500" style={{width: '50px', height: '50px' }}>
-                        <g>
-                            <path d="M102 450 C -44 -27 700 6 267 432" stroke="black" fill="transparent" strokeWidth="33"/>
-                        </g>
-                    </svg>
-                </button>
-                <button onClick={() => {}}>
-                    <svg version="1.1" viewBox="0 0 500 500" style={{width: '50px', height: '50px' }}>
-                        <g>
-                            <path d="M164 450 A 206 206 0 1 1 316 450" stroke="black" fill="transparent" strokeWidth="33"/>
-                        </g>
-                    </svg>
-                </button>
-                <button onClick={() => {
-                    const dSize = {
-                        x: this.props.svg_size.x - SCALE_STEP.x,
-                        y: this.props.svg_size.y - SCALE_STEP.y,
-                     }
-
-                    if ((dSize.x > SCALE_STEP.x * 2) && (dSize.y > SCALE_STEP.y * 2)) {
-                        this.props.resizeSvg(dSize)
-                        this.props.moveAll({x: (SCALE_STEP.x / -2), y: (SCALE_STEP.y / -2)})
-                    }
-                }}>
-                    +
-                </button>
-                <button onClick={() => {
-                    const dSize = {
-                        x: this.props.svg_size.x + SCALE_STEP.x,
-                        y: this.props.svg_size.y + SCALE_STEP.y,
-                     }
-
-                    if ((dSize.x < SCALE_STEP.x * 40) && (dSize.y < SCALE_STEP.y * 40)) {
-                        this.props.resizeSvg(dSize)
-                        this.props.moveAll({x: SCALE_STEP.x / 2, y: SCALE_STEP.y /2})
-                    }
-                }}>
-                    -
                 </button>
             </div>
-        )
-    }
+        </nav>
+    )
 }
 
 const mapStateToProps = (state) => {
     return {
-        svg_size: state.svg.size
+        current_mode: state.svg.mode,
+        svg_size: state.svg.size,
+        show_grid: state.svg.show_coordinate_grid,
     }
 }
 
@@ -99,7 +146,8 @@ const mapDispatchToProps = (dispatch) => {
     return {
         resizeSvg: (newSize) => dispatch(resizeSvg(newSize)),
         moveAll: (coords) => dispatch(moveAll(coords)),
-        changeMode: (mode) => dispatch({type: CHANGE_MODE, payload: mode})
+        changeMode: (mode) => dispatch({type: CHANGE_MODE, payload: mode}),
+        toggleGrid: () => dispatch({type: TOGGLE_GRID})
     }
 }
 

@@ -1,4 +1,4 @@
-import { RESIZE_SVG } from "./types";
+import { RESIZE_SVG } from "../const";
 
 export const resizeSvg = (size) => {
     return {
