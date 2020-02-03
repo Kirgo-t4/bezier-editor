@@ -1,4 +1,4 @@
-import { ADD_OBJ, MOVE, MOVE_ALL, SHIFT, SELECT, UNSELECT, CONNECT, REVERSE_CONNECT, REVERSE_CONNECT_ENDSIDE, SELF_CONNECT} from "../const";
+import { ADD_OBJ, MOVE, MOVE_ALL, SHIFT, SELECT, UNSELECT, CONNECT, REVERSE_CONNECT, REVERSE_CONNECT_ENDSIDE, SELF_CONNECT, DELETE } from "../const";
 import { Curve as QCurve } from "../figures/QCurve/type";
 import { Curve as CCurve } from "../figures/CCurve/type";
 import { Arc } from "../figures/Arc/type";
@@ -118,6 +118,11 @@ export default (state = initialState, action) => {
                         }
                         return obj
                     })
+            }
+        case DELETE:
+            return {
+                ...state,
+                objs: state.objs.filter((obj) => !obj.selected)
             }
        default:
            return state; 

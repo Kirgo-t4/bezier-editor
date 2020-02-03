@@ -18,6 +18,7 @@ export const CONNECT = "CONNECT"
 export const REVERSE_CONNECT = "REVERSE_CONNECT"
 export const REVERSE_CONNECT_ENDSIDE = "REVERSE_CONNECT_ENDSIDE"
 export const SELF_CONNECT = "SELF_CONNECT"
+export const DELETE = "DELETE"
 
 export const RESIZE_SVG = "RESIZE_SVG"
 export const CHANGE_MODE = "CHANGE_MODE"
@@ -36,4 +37,5 @@ export const MODE = Object.freeze({
     ADD_CCURVE: 2,
     ADD_ARC: 3,
     ADD_LINE: 4,
+    DELETE: 5,
 })

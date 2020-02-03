@@ -2,6 +2,7 @@ import React from 'react';
 import logo from '../assets/line-chart.svg'
 
 const Header = ({text}) => {
+
     return (
         <header className="header">
             <div className="container">

@@ -96,7 +96,6 @@ export class Figure {
     }
 
     reverseFigure() {
-        console.log('reverseFigure')
         const points = this.points.slice()
         return new this.constructor(points.reverse())
     }

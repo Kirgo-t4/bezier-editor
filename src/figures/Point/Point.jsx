@@ -1,11 +1,10 @@
-import React, { Component } from 'react'
+import React from 'react'
 
-export class Point extends Component {
-    render() {
-        return (
-            <circle id={this.props.id} cx={this.props.x} cy={this.props.y} r="3" fill="#ab4328" data-type="point"/>
-        )
-    }
+const Point = ({id, x, y, className}) => {
+    return (
+        <circle className={`canvas__point ${className}`} id={id} cx={x} cy={y} r="5" fill="#ab4328" data-type="point"/>
+    );
 }
+
 
 export default Point

@@ -3,6 +3,7 @@ import { connect } from "react-redux";
 import Figure from "../figures/Figure";
 import WithAddingNewFigure from "./WithAddingNewFigure";
 import WithMoveObjs from "./WithMoveObjs";
+import WithDeletingObj from './WithDeletingObj';
 
 import AddQCurveHOC from "../figures/QCurve/AddQCurveHOC";
 import AddCCurveHOC from "../figures/CCurve/AddCCurveHOC";
@@ -30,8 +31,30 @@ const Canvas = (props) => {
             case MODE.ADD_LINE:
                 const AddLine = AddLineHOC(WithAddingNewFigure)
                 return (<AddLine children={children}/>)
+            case MODE.DELETE:
+                return (<WithDeletingObj children={children} />)
             default:
-                throw new Error()
+                throw new Error("Wrong mode type")
+        }
+    }
+
+    const figureCssClassname = () => {
+        switch (props.mode) {
+            case MODE.MOVE:
+                return "move-cursor"
+            case MODE.DELETE:
+                return "delete-cursor"
+            default:
+                return ""
+        }
+    }
+
+    const pointCssClassname = () => {
+        switch (props.mode) {
+            case MODE.MOVE:
+                return "move-point-cursor"
+            default:
+                return ""
         }
     }
 
@@ -44,7 +67,7 @@ const Canvas = (props) => {
                         }
                         {
                             props.objs.map(obj => 
-                                <Figure helpLines={true} obj={obj} key={obj.id} />
+                                <Figure helpLines={true} obj={obj} key={obj.id} figure_className={figureCssClassname()} point_className={pointCssClassname()} />
                             )
                         }
                     </Fragment>

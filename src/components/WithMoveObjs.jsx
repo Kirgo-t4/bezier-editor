@@ -62,7 +62,6 @@ export class WithMoveObjs extends Component {
                     dragable_point: null
                 }
             })
-            this.props.selectObj(e.target.id)
         } else {
             this.setState((prevState) => {
                 return {
@@ -70,7 +69,6 @@ export class WithMoveObjs extends Component {
                     dragable: null,
                 }
             })
-            this.props.unSelectObj()
         }
 
         let CTM = this.CTM
@@ -83,6 +81,15 @@ export class WithMoveObjs extends Component {
     mmHandler = e => {
         let CTM = this.CTM;
         let detectConnectionResult = undefined;
+
+        if (!this.mouseDown) {
+            if (e.target.id && e.target.tagName === "path") {
+                this.props.selectObj(e.target.id)
+            } else {
+                this.props.unSelectObj()
+            }
+        }
+
         if (this.state.dragable_point && this.mouseDown) {
             this.props.moveObj(this.state.dragable_point.id, {x: getSvgCoordsX(e.clientX, CTM), y: getSvgCoordsY(e.clientY, CTM)})
             detectConnectionResult = detectConnectionPoint(this.state.dragable_point, this.props.objs)

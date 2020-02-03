@@ -6,24 +6,25 @@ import WithBindRectHOC from "./../components/WithBindRectHOC";
 export class Figure extends Component {
     
     render() {
-        const obj = this.props.obj
-        const points = this.props.obj.points
+        const { obj, helpLines, figure_className, point_className } = this.props
+        const points = obj.points
         return (
             <Fragment>
                 <path ref="obj"
+                    className= {figure_className}
                     id={obj.id}
                     d={obj.svgString} 
                     stroke="black" 
                     fill="transparent" 
                 />
                 {
-                    this.props.helpLines && obj.helpLines.map((line, index) => 
+                    helpLines && obj.helpLines.map((line, index) => 
                         <line key={obj.id + index} x1={line.point1.x} y1={line.point1.y} x2={line.point2.x} y2={line.point2.y} stroke="black" strokeDasharray="2 3" strokeWidth="1" />
                     )
                 }
                 {
                     points.map(point => 
-                        <Point id={point.id} x={point.x} y={point.y} key={point.id}></Point>
+                        <Point id={point.id} x={point.x} y={point.y} key={point.id} className={point_className}></Point>
                     )
                 }
             </Fragment>

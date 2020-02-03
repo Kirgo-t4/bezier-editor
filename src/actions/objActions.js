@@ -1,4 +1,4 @@
-import { ADD_OBJ, MOVE, MOVE_ALL, SHIFT, SELECT, UNSELECT, CONNECT, REVERSE_CONNECT, REVERSE_CONNECT_ENDSIDE, SELF_CONNECT } from "../const";
+import { ADD_OBJ, MOVE, MOVE_ALL, SHIFT, SELECT, UNSELECT, CONNECT, REVERSE_CONNECT, REVERSE_CONNECT_ENDSIDE, SELF_CONNECT, DELETE } from "../const";
 
 export const addObj = (type, obj) => {
     return {
@@ -66,5 +66,11 @@ export const self_connect = (id) => {
     return {
         type: SELF_CONNECT,
         payload: {id}
+    }
+}
+
+export const deleting = () => {
+    return {
+        type: DELETE
     }
 }

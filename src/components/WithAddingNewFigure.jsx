@@ -25,8 +25,6 @@ export class WithAddingNewFigure extends Component {
     }
 
     mdHandler = e => {
-        console.log(e.clientX)
-        console.log(e.screenX)
         this.CTM = document.getElementById('svg').getScreenCTM()
         let CTM = this.CTM
         let realCord = {
@@ -44,7 +42,6 @@ export class WithAddingNewFigure extends Component {
                 y: realCord.y,
             },
         })
-        console.log('mousedown')
     }
 
     mmHandler = e => {

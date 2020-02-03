@@ -3,8 +3,8 @@ import React from 'react';
 
 const CoordGrid = (props) => {
     const { maxX, maxY, stepX, stepY } = props
-    const countX = Math.floor(maxX/stepX)
-    const countY = Math.floor(maxY/stepY)
+    const countX = Math.round(maxX/stepX)
+    const countY = Math.round(maxY/stepY)
     return (
         <g>
             {
