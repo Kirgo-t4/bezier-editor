@@ -28,8 +28,6 @@ export class ToolTip extends Component {
 
     componentDidMount = () => {
         const rect = ReactDOM.findDOMNode(this)
-        console.log(rect)
-        console.log(this.props.children)
         rect.addEventListener('mouseenter', this.mouseEnterHandler)
         rect.addEventListener('mousemove', this.mouseMoveHandler)
         rect.addEventListener('mouseleave', this.mouseLeaveHandler)
@@ -43,10 +41,8 @@ export class ToolTip extends Component {
     }
 
     mouseEnterHandler = (e) => {
-        console.log(e)
         this.mouseMoveHandler(e)
         this.timeOut = setTimeout(() => {
-            console.log(this)
             this.makeVisible()
         }, tooltip_timeout)
         

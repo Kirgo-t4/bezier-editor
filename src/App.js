@@ -6,10 +6,6 @@ import Footer from "./components/Footer";
 import { Provider } from "react-redux";
 import store from "./store/store"
 
-import "@fortawesome/fontawesome-free/css/fontawesome.min.css"
-import "@fortawesome/fontawesome-free/css/regular.min.css"
-import "@fortawesome/fontawesome-free/css/solid.min.css"
-
 function App() {
   return (
     <Provider store={store}>

@@ -47,7 +47,7 @@ const MenuBar = (props) => {
                 <div className="menu__buttons-group">
                     <ToolTip text={json_strings.tooltips.edit}>
                         <button className={'menu__button' + (props.current_mode === MODE.MOVE ? " menu__active-button" : "") } onClick={() => { props.changeMode(MODE.MOVE)}}>
-                            <svg version="1.1" viewBox="0 0 297 297" style={{width: '50px', height: '50px' }}>
+                            <svg version="1.1" viewBox="0 0 297 297">
                                 <g>
                                     <path d="M142.131,200.933l34.909-20.166c3.275-1.892,5.181-5.488,4.908-9.261c-0.271-3.772-2.676-7.058-6.188-8.459L13.531,98.336
                                         c-3.664-1.461-7.848-0.602-10.639,2.188c-2.79,2.791-3.651,6.974-2.191,10.639L65.406,273.41c1.402,3.514,4.688,5.918,8.46,6.19
@@ -73,7 +73,7 @@ const MenuBar = (props) => {
                     </ToolTip>
                     <ToolTip text={json_strings.tooltips.delete}>
                         <button className={'menu__button delete-button' + (props.current_mode === MODE.DELETE ? " menu__active-button" : "") } onClick={() => { props.changeMode(MODE.DELETE)}}>
-                            <svg version="1.1" viewBox="0 0 413.348 413.348" style={{width: '50px', height: '50px' }}>
+                            <svg version="1.1" viewBox="0 0 413.348 413.348">
                                 <path d="m413.348 24.354-24.354-24.354-182.32 182.32-182.32-182.32-24.354 24.354 182.32 182.32-182.32 182.32 24.354 24.354 182.32-182.32 
                                 182.32 182.32 24.354-24.354-182.32-182.32z"/>
                             </svg>
@@ -87,7 +87,7 @@ const MenuBar = (props) => {
                     <ToolTip text={json_strings.tooltips.add_qcurve} >
                         <button className={"menu__button" + (props.current_mode === MODE.ADD_QCURVE ? " menu__active-button" : "")} 
                             onClick={() => { props.changeMode(MODE.ADD_QCURVE)}}>
-                            <svg version="1.1" viewBox="0 0 200 200" style={{width: '50px', height: '50px' }}>
+                            <svg version="1.1" viewBox="0 0 200 200">
                                 <g>
                                     <path d="M26 183 Q 142 -90 166 183" fill="transparent" strokeWidth="10"/>
                                 </g>
@@ -97,7 +97,7 @@ const MenuBar = (props) => {
                     <ToolTip text={json_strings.tooltips.add_ccurve} >
                         <button className={"menu__button" + (props.current_mode === MODE.ADD_CCURVE ? " menu__active-button" : "")} 
                                 onClick={() => { props.changeMode(MODE.ADD_CCURVE)}}>
-                                <svg version="1.1" viewBox="0 0 200 200" style={{width: '50px', height: '50px' }}>
+                                <svg version="1.1" viewBox="0 0 200 200">
                                     <g>
                                         <path d="M52 150 C -44 -27 300 6 127 132" fill="transparent" strokeWidth="10"/>
                                     </g>
@@ -109,7 +109,7 @@ const MenuBar = (props) => {
                     <ToolTip text={json_strings.tooltips.add_arc} >
                         <button className={"menu__button" + (props.current_mode === MODE.ADD_ARC ? " menu__active-button" : "")} 
                             onClick={() => { props.changeMode(MODE.ADD_ARC)}}>
-                            <svg version="1.1" viewBox="0 0 200 200" style={{width: '50px', height: '50px' }}>
+                            <svg version="1.1" viewBox="0 0 200 200">
                                 <g>
                                     <path d="M74 190 A 80 80 0 1 1 140 190" fill="transparent" strokeWidth="10"/>
                                 </g>
@@ -118,7 +118,7 @@ const MenuBar = (props) => {
                     </ToolTip>
                     <ToolTip text={json_strings.tooltips.add_line} >
                         <button className={"menu__button" + (props.current_mode === MODE.ADD_LINE ? " menu__active-button" : "")} onClick={() => { props.changeMode(MODE.ADD_LINE)}}>
-                            <svg version="1.1" viewBox="0 0 200 200" style={{width: '50px', height: '50px' }}>
+                            <svg version="1.1" viewBox="0 0 200 200">
                                 <g>
                                     <path d="M10 190 L 190 10" fill="transparent" strokeWidth="10"/>
                                 </g>
@@ -129,30 +129,35 @@ const MenuBar = (props) => {
             </div>
             <div className="menu__sub-block">                
                 <h3>Масштаб</h3>
-                <p>{props.svg_size.x}п <i className="fas fa-times"></i> {props.svg_size.y}п</p>
-                <div className="menu__sub-buttons">
-                    <button className="scale-button" onClick={increaseScale}>
-                        <i className="fas fa-search-plus"></i>
-                    </button>
-                    <button className="scale-button" onClick={decreaseScale}>
-                        <i className="fas fa-search-minus"></i>
-                    </button>
+                
+                <div className="menu__buttons-group">
+                    <p>{props.svg_size.x}п <i className="fas fa-times"></i> {props.svg_size.y}п</p>
+                    <div className="menu__sub-buttons">
+                        <button className="scale-button" onClick={increaseScale}>
+                            <i className="fas fa-search-plus"></i>
+                        </button>
+                        <button className="scale-button" onClick={decreaseScale}>
+                            <i className="fas fa-search-minus"></i>
+                        </button>
+                    </div>
                 </div>
             </div>
             <div className="menu__sub-block">
                 <h3>Координатная сетка</h3>
-                <ToolTip text={json_strings.tooltips.coords}>
-                    <button className={"menu__button" + (props.show_grid ? " menu__active-button" : "")} onClick={ props.toggleGrid }>
-                        <svg version="1.1" viewBox="0 0 100 100" style={{width: '50px', height: '50px' }}>
-                            <g>
-                                <path d="M0 20 H100" />
-                                <path d="M0 80 H100" />
-                                <path d="M20 0 V100" />
-                                <path d="M80 0 V100" />
-                            </g>
-                        </svg>
-                    </button>
-                </ToolTip>
+                <div className="menu__buttons-group">
+                    <ToolTip text={json_strings.tooltips.coords}>
+                        <button className={"menu__button" + (props.show_grid ? " menu__active-button" : "")} onClick={ props.toggleGrid }>
+                            <svg version="1.1" viewBox="0 0 100 100">
+                                <g>
+                                    <path d="M0 20 H100" />
+                                    <path d="M0 80 H100" />
+                                    <path d="M20 0 V100" />
+                                    <path d="M80 0 V100" />
+                                </g>
+                            </svg>
+                        </button>
+                    </ToolTip>
+                </div>
             </div>
         </nav>
     )

@@ -3,9 +3,13 @@ import 'react-app-polyfill/ie9';
 import React from 'react';
 import ReactDOM from 'react-dom';
 
-import './index.scss';
 import App from './App';
 
-ReactDOM.render(<App />, document.getElementById('root'));
+import "@fortawesome/fontawesome-free/css/fontawesome.min.css"
+import "@fortawesome/fontawesome-free/css/regular.min.css"
+import "@fortawesome/fontawesome-free/css/solid.min.css"
 
-//Icons made by <a href="https://www.flaticon.com/authors/vectors-market" title="Vectors Market">Vectors Market</a> from <a href="https://www.flaticon.com/" title="Flaticon"> www.flaticon.com</a>
+import './index.scss';
+import './media.scss';
+
+ReactDOM.render(<App />, document.getElementById('root'));

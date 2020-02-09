@@ -1,30 +1,14 @@
-$bg-color: #f3f3f3;
-$text-color: #2b2b2b;
-$bg-menu-color: #4ca508;
-$bg-menu-button: #dcd253;
-$menu-btn-color: #3f4441;
-$bg-active-button: #f4ff52;
-
-$bg-delete-button: #c79999;
-$bg-delete-button-active: #fbb2b2;
-$bg-delete-mode-color: #ce4242;
-$footer-border: #ccc;
-
-$base-font-size: 16px;
-
-$canvas-width: 700px;
-
-$header-height: 50px;
-$footer-height: 50px;
+@import './settings.scss';
 
 * {
   margin: 0;
   padding: 0;
   font-weight: normal;
+  box-sizing: border-box;
 }
 
 html, body, #root, .App {
-  height: 100%;
+  min-height: 100vh;
 }
 
 body {
@@ -34,6 +18,14 @@ body {
   box-sizing: border-box;
   font-family: Arial, Helvetica, sans-serif;
   font-size: $base-font-size;
+  height: 100%;
+}
+
+.App::before {
+  display: block;
+  width: 100%;
+  height: $header-height;
+  content: "";
 }
 
 a {
@@ -55,11 +47,6 @@ svg {
   overflow: hidden;
 }
 
-.main {
-  display: flex;
-  flex-direction: row;
-}
-
 .container {
   min-width: 80vw;
   margin: 0 auto;
@@ -68,8 +55,17 @@ svg {
   justify-content: space-between;
 }
 
+.main {
+  display: flex;
+  flex-direction: row;
+
+  .container {
+    justify-content: center;
+  }
+}
+
 .inner-container {
-  margin-top: calc(#{$header-height} + 12px);
+ /* margin-top: calc(#{$header-height} + 12px); */
   display: flex;
   flex-direction: row;
   justify-content: center;
@@ -78,17 +74,18 @@ svg {
 .menu {
   display: flex;
   flex-direction: column;
-  width: 200px;
+  width: 260px;
   margin-right: 60px;
   background: $bg-menu-color;
   border-radius: 10px;
-  padding: 20px;
+  padding: 10px 20px;
   box-shadow: 5px 4px 0px #e4e4e4;
 }
 
 .menu__button {
-  width: 100px;
+  width: $menu-l-button-width;
   height: 60px;
+  padding: 3px;
   margin: 5px auto;
   border-radius: 10%;
   border: none;
@@ -142,6 +139,7 @@ svg {
     text-decoration: underline;
     text-transform: uppercase;
     margin-bottom: 5px;
+    font-size: $h3-size;
     font-weight: bold;
   }
 
@@ -157,7 +155,7 @@ svg {
   width: 100%;
 
   .menu__button {
-    width: 60px;
+    width: $menu-m-button-width;
     margin: 5px;
   }
   
@@ -181,6 +179,7 @@ svg {
   border: 5px solid $bg-menu-color;
   border-radius: 10px;
   width: $canvas-width;
+  height: $canvas-width;
   
 }
 
@@ -208,7 +207,7 @@ svg {
   h1 {
     text-align: center;
     margin: 0 auto;
-    font-size: 1.7rem;
+    font-size: 1.7em;
     color: #0a0c0b;
     text-transform: capitalize;
   }
@@ -241,6 +240,11 @@ svg {
   display: flex;
   flex-direction: row;
   align-items: center;
+  font-size: 1.1em;
+
+  .footer__text-wrapper {
+    margin-right: 5px;
+  }
 }
 
 .move-cursor {
