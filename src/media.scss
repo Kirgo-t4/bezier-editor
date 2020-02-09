@@ -1,6 +1,15 @@
 @import './settings.scss';
 
 @media (orientation: landscape) {
+
+    @media (min-height: 1000px) {
+        .canvas-wrapper {
+            width: calc(#{$canvas-width} + 150px);
+            height: calc(#{$canvas-width} + 150px);
+        }
+    }
+
+
     @media (max-width: 1100px) {
         .canvas-wrapper {
             width: calc(#{$canvas-width} - 100px);
