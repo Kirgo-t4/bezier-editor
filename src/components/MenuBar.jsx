@@ -41,7 +41,7 @@ const MenuBar = (props) => {
     }
 
     return (
-        <nav className="menu">
+        <aside className="menu">
             <div className="menu__sub-block">
                 <h3>Редактировать</h3>
                 <div className="menu__buttons-group">
@@ -159,7 +159,7 @@ const MenuBar = (props) => {
                     </ToolTip>
                 </div>
             </div>
-        </nav>
+        </aside>
     )
 }
 

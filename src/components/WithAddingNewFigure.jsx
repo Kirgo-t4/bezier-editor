@@ -75,9 +75,28 @@ export class WithAddingNewFigure extends Component {
         })
     }
 
+    tsHandler = e => {
+        this.mdHandler(e.touches[0])
+    }
+
+    tmHandler = e => {
+        this.mmHandler(e.touches[0])
+    }
+
+    teHandler = e => {
+        this.muHandler(e.changedTouches[0])
+    }
+
     render() {
         return (
-            <div className="canvas-wrapper" onMouseDown={this.mdHandler} onMouseMove={this.mmHandler} onMouseUp={this.muHandler}>
+            <div className="canvas-wrapper" 
+            onMouseDown={this.mdHandler} 
+            onMouseMove={this.mmHandler} 
+            onMouseUp={this.muHandler}
+            onTouchStart={this.tsHandler}
+            onTouchMove={this.tmHandler}
+            onTouchEnd={this.teHandler}
+            >
                 <SVG>
                     {this.props.children}
                     {this.state.dragable && 
