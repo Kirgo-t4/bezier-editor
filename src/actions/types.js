@@ -1,11 +1,11 @@
 
 import { default as UUID } from "uuid";
-import { type_point } from "../const";
+import { TFIGURE } from "../const";
 
 export class Point {
     constructor(point, owner = null) {
         this.id = UUID.v4()
-        this.type = type_point
+        this.type = TFIGURE.POINT
         this._x = point.x
         this._y = point.y
         this.owner = owner

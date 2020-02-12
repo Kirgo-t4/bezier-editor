@@ -1,10 +1,10 @@
 import { Figure } from "../../actions/types";
-import { type_line } from "../../const";
+import { TFIGURE } from "../../const";
 
 export class Line extends Figure {
     constructor(points) {
         super(points)
-        this.type = type_line
+        this.type = TFIGURE.LINE
     }
 
     get svgString() {

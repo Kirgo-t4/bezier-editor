@@ -60,12 +60,11 @@ svg {
   flex-direction: row;
 
   .container {
-    justify-content: center;
+    justify-content: left;
   }
 }
 
 .inner-container {
- /* margin-top: calc(#{$header-height} + 12px); */
   display: flex;
   flex-direction: row;
   justify-content: center;
@@ -75,11 +74,17 @@ svg {
   display: flex;
   flex-direction: column;
   width: 260px;
+  margin-left: calc(#{$left-panel-width} + 2px);
   margin-right: 60px;
   background: $bg-menu-color;
   border-radius: 10px;
   padding: 10px 20px;
   box-shadow: 5px 4px 0px #e4e4e4;
+}
+
+.button {
+  transition: background 0.8s ease;
+  cursor: pointer;
 }
 
 .menu__button {
@@ -91,8 +96,6 @@ svg {
   border: none;
   background: $bg-menu-button;
   box-shadow: 1px 1px 4px #615e3c;
-  cursor: pointer;
-  transition: background 0.8s ease;
 
   svg {
     stroke: $menu-btn-color;
@@ -130,13 +133,12 @@ svg {
 }
 
 .menu__sub-block {
-  margin-bottom: 50px;
+  margin-bottom: 47px;
   text-align: center;
   display: flex;
   flex-direction: column;
 
   h3 {
-    text-decoration: underline;
     text-transform: uppercase;
     margin-bottom: 5px;
     font-size: $h3-size;
@@ -173,17 +175,20 @@ svg {
   background: $bg-delete-button-active;
 }
 
+.canvas-inner {
+  width: 100%;
+  height: 100%;
+  border: 5px solid $bg-menu-color;
+  border-radius: 10px;
+}
 
 .canvas-wrapper {
   box-shadow: 5px 4px 0px #e4e4e4;
-  border: 5px solid $bg-menu-color;
-  border-radius: 10px;
   width: $canvas-width;
   height: $canvas-width;
-  
 }
 
-.canvas-wrapper_delete-mode {
+.canvas-inner_delete-mode {
   border-color: $bg-delete-mode-color;
 }
 
@@ -222,7 +227,7 @@ svg {
 .header__main-wrapper {
   display: flex;
   flex-direction: row;
-  justify-content: center;
+  justify-content: space-around;
   width: 90%;
 }
 
@@ -232,6 +237,24 @@ svg {
   justify-content: center;
   text-align: center;
   align-items: center;
+}
+
+.left-panel__button {
+  background: $left-panel-btn-color;
+
+  &:hover {
+    background: $left-panel-btn-hover-color;
+  }
+}
+
+.left-panel {
+  position: fixed;
+  left: 0;
+  top: 0;
+  height: 100%;
+  width: $left-panel-width;
+  padding-top: $header-height;
+  background: $left-panel-color;
 }
 
 .footer {

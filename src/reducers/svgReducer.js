@@ -1,4 +1,4 @@
-import { RESIZE_SVG, MODE, CHANGE_MODE, TOGGLE_GRID } from "../const";
+import { ACTIONS, MODE } from "../const";
 
 const initialState = {
     size: {
@@ -10,6 +10,7 @@ const initialState = {
 }
 
 export default (state = initialState, action) => {
+    const { RESIZE_SVG, CHANGE_MODE, TOGGLE_GRID } = ACTIONS
     switch(action.type) {
         case RESIZE_SVG:
             return {

@@ -1,10 +1,10 @@
 import { Figure } from "../../actions/types";
-import { type_ccurve } from "../../const";
+import { TFIGURE } from "../../const";
 
 export class Curve extends Figure {
     constructor(points) {
         super(points)
-        this.type = type_ccurve
+        this.type = TFIGURE.CCURVE
     }
 
     get svgString() {

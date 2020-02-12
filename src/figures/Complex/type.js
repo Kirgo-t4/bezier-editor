@@ -1,11 +1,11 @@
-import { type_complex } from "../../const";
+import { TFIGURE } from "../../const";
 import { Figure } from "../../actions/types";
 
 
 export class Complex extends Figure {
     constructor(figure1, figure2) {
         super([])
-        this.type = type_complex
+        this.type = TFIGURE.COMPLEX
         this._figure1 = figure1
         this._figure2 = figure2
         this.concatFigures(this._figure1, this._figure2)
@@ -39,7 +39,7 @@ export class Complex extends Figure {
     }
 
     concatFigures(fig1, fig2) {
-        if (fig2.type === type_complex) {
+        if (fig2.type === TFIGURE.COMPLEX) {
             fig2._points[0] = fig1._points[fig1._points.length - 1]
             this.concatFigures(fig1, fig2.figure1)
         } else {

@@ -1,8 +1,8 @@
 import React, { Component } from 'react'
 import { connect } from "react-redux";
 import { moveObj, shiftObj, selectObj, unselectObj, connect as figureConnect, reverse_connect as figureReverseConnect,
-     reverse_connect_endside as figureReverseConnectR, self_connect} from "../actions/objActions";
-import { getSvgCoordsX, getSvgCoordsY, getRealCoordsOffset, detectConnection, detectConnectionPoint } from "./common";
+     reverse_connect_endside as figureReverseConnectR, self_connect} from "../../actions/objActions";
+import { getSvgCoordsX, getSvgCoordsY, getRealCoordsOffset, detectConnection, detectConnectionPoint } from "../common";
 import SVG from "./SVG"
 
 export class WithMoveObjs extends Component {
@@ -180,7 +180,7 @@ export class WithMoveObjs extends Component {
 
     render() {
         return (
-            <div className="canvas-wrapper" 
+            <div className="canvas-inner" 
             onMouseDown={this.mdHandler} 
             onMouseMove={this.mmHandler} 
             onMouseUp={this.muHandler} 

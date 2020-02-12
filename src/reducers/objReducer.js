@@ -1,4 +1,4 @@
-import { ADD_OBJ, MOVE, MOVE_ALL, SHIFT, SELECT, UNSELECT, CONNECT, REVERSE_CONNECT, REVERSE_CONNECT_ENDSIDE, SELF_CONNECT, DELETE } from "../const";
+import { ACTIONS } from "../const";
 import { Curve as QCurve } from "../figures/QCurve/type";
 import { Curve as CCurve } from "../figures/CCurve/type";
 import { Arc } from "../figures/Arc/type";
@@ -15,6 +15,7 @@ const initialState = {
 }
 
 export default (state = initialState, action) => {
+    const { ADD_OBJ, MOVE, MOVE_ALL, SHIFT, SELECT, UNSELECT, CONNECT, REVERSE_CONNECT, REVERSE_CONNECT_ENDSIDE, SELF_CONNECT, DELETE } = ACTIONS
     switch(action.type) {
        case ADD_OBJ:
            return {

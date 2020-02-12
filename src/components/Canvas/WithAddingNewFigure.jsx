@@ -1,10 +1,10 @@
 import React, { Component } from 'react'
 import { connect } from "react-redux";
-import { addObj } from "../actions/objActions";
+import { addObj } from "../../actions/objActions";
 import TempRect from "./TempRect";
-import { getSvgCoordsX, getSvgCoordsY } from "./common";
+import { getSvgCoordsX, getSvgCoordsY } from "../common";
 import SVG from "./SVG"
-import { CHANGE_MODE, MODE, MIN_DIST_FOR_ADDING_FIGURE } from "../const";
+import { ACTIONS, MODE, MIN_DIST_FOR_ADDING_FIGURE } from "../../const";
 
 export class WithAddingNewFigure extends Component {
 
@@ -89,7 +89,7 @@ export class WithAddingNewFigure extends Component {
 
     render() {
         return (
-            <div className="canvas-wrapper" 
+            <div className="canvas-inner" 
             onMouseDown={this.mdHandler} 
             onMouseMove={this.mmHandler} 
             onMouseUp={this.muHandler}
@@ -111,7 +111,7 @@ export class WithAddingNewFigure extends Component {
 const mapDispatchToProps = (dispatch) => {
     return {
         addCurve: (type,point) => dispatch(addObj(type, point)),
-        changeMode: () => dispatch({type: CHANGE_MODE, payload: MODE.MOVE})
+        changeMode: () => dispatch({type: ACTIONS.CHANGE_MODE, payload: MODE.MOVE})
     }
 }
 

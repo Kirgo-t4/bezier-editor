@@ -1,17 +1,26 @@
 import { Component, Fragment } from "react";
 import React from 'react';
 import Point from "./Point/Point";
-import WithBindRectHOC from "./../components/WithBindRectHOC";
+import WithBindRectHOC from "./../components/Canvas/WithBindRectHOC";
 
-export class Figure extends Component {
+export class Figure extends Component { 
     
     render() {
-        const { obj, helpLines, figure_className, point_className } = this.props
+
+        const class_name = {}
+
+        const { obj, helpLines, helpPoints, figure_className, point_className } = this.props
+
+        if (figure_className) {
+            class_name.className = figure_className
+        }
+
         const points = obj.points
+
         return (
             <Fragment>
                 <path ref="obj"
-                    className= {figure_className}
+                    {...class_name}
                     id={obj.id}
                     d={obj.svgString} 
                     stroke="black" 
@@ -23,7 +32,7 @@ export class Figure extends Component {
                     )
                 }
                 {
-                    points.map(point => 
+                    helpPoints && points.map(point => 
                         <Point id={point.id} x={point.x} y={point.y} key={point.id} className={point_className}></Point>
                     )
                 }

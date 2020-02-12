@@ -3,7 +3,7 @@ import { connect } from "react-redux";
 
 import SVG from './SVG'
 
-import { selectObj, unselectObj, deleting } from "../actions/objActions";
+import { selectObj, unselectObj, deleting } from "../../actions/objActions";
 
 export class WithDeletingObj extends Component {
 /*  Компонент добавляет функционал удаления фигур с холста */
@@ -22,7 +22,7 @@ export class WithDeletingObj extends Component {
 
     render() {
         return (
-            <div className="canvas-wrapper canvas-wrapper_delete-mode" onMouseMove={this.mmHandler} onClick={this.mcHandler}>
+            <div className="canvas-inner canvas-inner_delete-mode" onMouseMove={this.mmHandler} onClick={this.mcHandler}>
                 <SVG>
                     {this.props.children}
                 </SVG>

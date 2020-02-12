@@ -1,10 +1,10 @@
 import { Figure } from "../../actions/types";
-import { type_arc } from "../../const";
+import { TFIGURE } from "../../const";
 
 export class Arc extends Figure {
     constructor(points) {
         super(points)
-        this.type = type_arc
+        this.type = TFIGURE.ARC
     }
 
 

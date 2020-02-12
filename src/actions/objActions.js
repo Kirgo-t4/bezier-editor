@@ -1,76 +1,76 @@
-import { ADD_OBJ, MOVE, MOVE_ALL, SHIFT, SELECT, UNSELECT, CONNECT, REVERSE_CONNECT, REVERSE_CONNECT_ENDSIDE, SELF_CONNECT, DELETE } from "../const";
+import { ACTIONS } from "../const";
 
 export const addObj = (type, obj) => {
     return {
-        type: ADD_OBJ,
+        type: ACTIONS.ADD_OBJ,
         payload: new type(obj)
     }
 }
 
 export const moveObj = (id, coords) => {
     return {
-        type: MOVE,
+        type: ACTIONS.MOVE,
         payload: { id, coords }
     }
 }
 
 export const moveAll = (coords) => {
     return {
-        type: MOVE_ALL,
+        type: ACTIONS.MOVE_ALL,
         payload: { coords } 
     }
 }
 
 export const shiftObj = (id, offset) => {
     return {
-        type: SHIFT,
+        type: ACTIONS.SHIFT,
         payload: {id, offset}
     }
 }
 
 export const selectObj = (id) => {
     return {
-        type: SELECT,
+        type: ACTIONS.SELECT,
         payload: {id}
     }
 }
 
 export const unselectObj = (id) => {
     return {
-        type: UNSELECT,
+        type: ACTIONS.UNSELECT,
     }
 }
 
 export const connect = (id1, id2) => {
     return {
-        type: CONNECT,
+        type: ACTIONS.CONNECT,
         payload: {id1, id2}
     }
 }
 
 export const reverse_connect = (id1, id2) => {
     return {
-        type: REVERSE_CONNECT,
+        type: ACTIONS.REVERSE_CONNECT,
         payload: {id1, id2}
     }
 }
 
 export const reverse_connect_endside = (id1, id2) => {
     return {
-        type: REVERSE_CONNECT_ENDSIDE,
+        type: ACTIONS.REVERSE_CONNECT_ENDSIDE,
         payload: {id1, id2}
     }
 }
 
 export const self_connect = (id) => {
     return {
-        type: SELF_CONNECT,
+        type: ACTIONS.SELF_CONNECT,
         payload: {id}
     }
 }
 
 export const deleting = () => {
     return {
-        type: DELETE
+        type: ACTIONS.DELETE
     }
 }

@@ -1,10 +1,10 @@
 import { Figure } from "../../actions/types";
-import { type_qcurve } from "../../const";
+import { TFIGURE } from "../../const";
 
 export class Curve extends Figure {
     constructor(points) {
         super(points)
-        this.type = type_qcurve
+        this.type = TFIGURE.QCURVE
     }
 
     get svgString() {

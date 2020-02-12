@@ -1,35 +1,39 @@
-export const CONNECT_DIST = 5;
-export const MIN_DIST_FOR_ADDING_FIGURE = 50;
-export const MIN_COUNT_OF_POINTS_TO_CLOSE_OBJECT = 4;
-export const SCALE_STEP = {
+export const CONNECT_DIST = 5; // Расстояние между 2 крайними точками фигур,  при движении точек или фигур, меньше которого производится слияние фигур
+export const MIN_DIST_FOR_ADDING_FIGURE = 50; // Минимальная длина стороны окаймляющего прямоугольника больше которой генерируется создание фигуры внутри прямоугольника
+export const MIN_COUNT_OF_POINTS_TO_CLOSE_OBJECT = 4; // Минимальное кол-во точек, при котором возможно замыкание фигуры на себя 
+export const SCALE_STEP = { // Шаг координатной сетки в svg координатах
     x: 50,
     y: 50,
 };
 
-export const ADD_POINT = "ADD_POINT"
-export const ADD_CURVE = "ADD_CURVE"
-export const ADD_OBJ = "ADD_CURVE"
-export const MOVE = "MOVE"
-export const MOVE_ALL = "MOVE_ALL"
-export const SHIFT = "SHIFT"
-export const SELECT = "SELECT"
-export const UNSELECT = "UNSELECT"
-export const CONNECT = "CONNECT"
-export const REVERSE_CONNECT = "REVERSE_CONNECT"
-export const REVERSE_CONNECT_ENDSIDE = "REVERSE_CONNECT_ENDSIDE"
-export const SELF_CONNECT = "SELF_CONNECT"
-export const DELETE = "DELETE"
 
-export const RESIZE_SVG = "RESIZE_SVG"
-export const CHANGE_MODE = "CHANGE_MODE"
-export const TOGGLE_GRID = "TOGGLE_GRID"
+export const ACTIONS = Object.freeze({ // События вызывающие изменение состояния приложения
+    ADD_POINT: "ADD_POINT",
+    ADD_CURVE: "ADD_CURVE",
+    ADD_OBJ: "ADD_CURVE",
+    MOVE: "MOVE",
+    MOVE_ALL: "MOVE_ALL",
+    SHIFT: "SHIFT",
+    SELECT: "SELECT",
+    UNSELECT: "UNSELECT",
+    CONNECT: "CONNECT",
+    REVERSE_CONNECT: "REVERSE_CONNECT",
+    REVERSE_CONNECT_ENDSIDE: "REVERSE_CONNECT_ENDSIDE",
+    SELF_CONNECT: "SELF_CONNECT",
+    DELETE: "DELETE",
+    RESIZE_SVG: "RESIZE_SVG",
+    CHANGE_MODE: "CHANGE_MODE",
+    TOGGLE_GRID: "TOGGLE_GRID"
+})
 
-export const type_qcurve = "qcurve"
-export const type_ccurve = "ccurve"
-export const type_point = "point"
-export const type_complex = "complex"
-export const type_arc = "arc"
-export const type_line = "line"
+export const TFIGURE = Object.freeze({
+    QCURVE: "qcurve",
+    CCURVE: "ccurve",
+    POINT: "point",
+    COMPLEX: "complex",
+    ARC: "arc",
+    LINE: "line"
+})
 
 export const MODE = Object.freeze({
     MOVE: 0,

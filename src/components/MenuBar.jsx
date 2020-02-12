@@ -3,11 +3,11 @@ import React from 'react'
 
 import ToolTip from "./ToolTip/ToolTip";
 
-import { CHANGE_MODE, MODE } from "../const";
+import { ACTIONS, MODE } from "../const";
 
 import { resizeSvg } from "../actions/svgActions";
 import { moveAll } from "../actions/objActions";
-import { SCALE_STEP, TOGGLE_GRID } from "../const";
+import { SCALE_STEP } from "../const";
 
 import json_strings from "../strings.json";
 
@@ -41,12 +41,12 @@ const MenuBar = (props) => {
     }
 
     return (
-        <aside className="menu">
+        <div className="menu">
             <div className="menu__sub-block">
                 <h3>Редактировать</h3>
                 <div className="menu__buttons-group">
                     <ToolTip text={json_strings.tooltips.edit}>
-                        <button className={'menu__button' + (props.current_mode === MODE.MOVE ? " menu__active-button" : "") } onClick={() => { props.changeMode(MODE.MOVE)}}>
+                        <button className={'button menu__button' + (props.current_mode === MODE.MOVE ? " menu__active-button" : "") } onClick={() => { props.changeMode(MODE.MOVE)}}>
                             <svg version="1.1" viewBox="0 0 297 297">
                                 <g>
                                     <path d="M142.131,200.933l34.909-20.166c3.275-1.892,5.181-5.488,4.908-9.261c-0.271-3.772-2.676-7.058-6.188-8.459L13.531,98.336
@@ -72,7 +72,7 @@ const MenuBar = (props) => {
                         </button>
                     </ToolTip>
                     <ToolTip text={json_strings.tooltips.delete}>
-                        <button className={'menu__button delete-button' + (props.current_mode === MODE.DELETE ? " menu__active-button" : "") } onClick={() => { props.changeMode(MODE.DELETE)}}>
+                        <button className={'button menu__button delete-button' + (props.current_mode === MODE.DELETE ? " menu__active-button" : "") } onClick={() => { props.changeMode(MODE.DELETE)}}>
                             <svg version="1.1" viewBox="0 0 413.348 413.348">
                                 <path d="m413.348 24.354-24.354-24.354-182.32 182.32-182.32-182.32-24.354 24.354 182.32 182.32-182.32 182.32 24.354 24.354 182.32-182.32 
                                 182.32 182.32 24.354-24.354-182.32-182.32z"/>
@@ -85,7 +85,7 @@ const MenuBar = (props) => {
                 <h3>Добавить</h3>
                 <div className="menu__buttons-group">
                     <ToolTip text={json_strings.tooltips.add_qcurve} >
-                        <button className={"menu__button" + (props.current_mode === MODE.ADD_QCURVE ? " menu__active-button" : "")} 
+                        <button className={"button menu__button" + (props.current_mode === MODE.ADD_QCURVE ? " menu__active-button" : "")} 
                             onClick={() => { props.changeMode(MODE.ADD_QCURVE)}}>
                             <svg version="1.1" viewBox="0 0 200 200">
                                 <g>
@@ -95,7 +95,7 @@ const MenuBar = (props) => {
                         </button>
                     </ToolTip>
                     <ToolTip text={json_strings.tooltips.add_ccurve} >
-                        <button className={"menu__button" + (props.current_mode === MODE.ADD_CCURVE ? " menu__active-button" : "")} 
+                        <button className={"button menu__button" + (props.current_mode === MODE.ADD_CCURVE ? " menu__active-button" : "")} 
                                 onClick={() => { props.changeMode(MODE.ADD_CCURVE)}}>
                                 <svg version="1.1" viewBox="0 0 200 200">
                                     <g>
@@ -107,7 +107,7 @@ const MenuBar = (props) => {
                 </div>
                 <div className="menu__buttons-group">
                     <ToolTip text={json_strings.tooltips.add_arc} >
-                        <button className={"menu__button" + (props.current_mode === MODE.ADD_ARC ? " menu__active-button" : "")} 
+                        <button className={"button menu__button" + (props.current_mode === MODE.ADD_ARC ? " menu__active-button" : "")} 
                             onClick={() => { props.changeMode(MODE.ADD_ARC)}}>
                             <svg version="1.1" viewBox="0 0 200 200">
                                 <g>
@@ -117,7 +117,7 @@ const MenuBar = (props) => {
                         </button>
                     </ToolTip>
                     <ToolTip text={json_strings.tooltips.add_line} >
-                        <button className={"menu__button" + (props.current_mode === MODE.ADD_LINE ? " menu__active-button" : "")} onClick={() => { props.changeMode(MODE.ADD_LINE)}}>
+                        <button className={"button menu__button" + (props.current_mode === MODE.ADD_LINE ? " menu__active-button" : "")} onClick={() => { props.changeMode(MODE.ADD_LINE)}}>
                             <svg version="1.1" viewBox="0 0 200 200">
                                 <g>
                                     <path d="M10 190 L 190 10" fill="transparent" strokeWidth="10"/>
@@ -146,7 +146,7 @@ const MenuBar = (props) => {
                 <h3>Координатная сетка</h3>
                 <div className="menu__buttons-group">
                     <ToolTip text={json_strings.tooltips.coords}>
-                        <button className={"menu__button" + (props.show_grid ? " menu__active-button" : "")} onClick={ props.toggleGrid }>
+                        <button className={"button menu__button" + (props.show_grid ? " menu__active-button" : "")} onClick={ props.toggleGrid }>
                             <svg version="1.1" viewBox="0 0 100 100">
                                 <g>
                                     <path d="M0 20 H100" />
@@ -159,7 +159,7 @@ const MenuBar = (props) => {
                     </ToolTip>
                 </div>
             </div>
-        </aside>
+        </div>
     )
 }
 
@@ -175,8 +175,8 @@ const mapDispatchToProps = (dispatch) => {
     return {
         resizeSvg: (newSize) => dispatch(resizeSvg(newSize)),
         moveAll: (coords) => dispatch(moveAll(coords)),
-        changeMode: (mode) => dispatch({type: CHANGE_MODE, payload: mode}),
-        toggleGrid: () => dispatch({type: TOGGLE_GRID})
+        changeMode: (mode) => dispatch({type: ACTIONS.CHANGE_MODE, payload: mode}),
+        toggleGrid: () => dispatch({type: ACTIONS.TOGGLE_GRID})
     }
 }
 

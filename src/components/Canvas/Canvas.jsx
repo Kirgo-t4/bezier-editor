@@ -1,17 +1,17 @@
 import React, { Fragment } from 'react'
 import { connect } from "react-redux";
-import Figure from "../figures/Figure";
+import Figure from "../../figures/Figure";
 import WithAddingNewFigure from "./WithAddingNewFigure";
 import WithMoveObjs from "./WithMoveObjs";
 import WithDeletingObj from './WithDeletingObj';
 
-import AddQCurveHOC from "../figures/QCurve/AddQCurveHOC";
-import AddCCurveHOC from "../figures/CCurve/AddCCurveHOC";
-import AddArcHOC from "../figures/Arc/AddArcHOC";
-import AddLineHOC from "../figures/Line/AddLineHOC";
+import AddQCurveHOC from "../../figures/QCurve/AddQCurveHOC";
+import AddCCurveHOC from "../../figures/CCurve/AddCCurveHOC";
+import AddArcHOC from "../../figures/Arc/AddArcHOC";
+import AddLineHOC from "../../figures/Line/AddLineHOC";
 import CoordGrid from "./CoordGrid";
 
-import { MODE } from "../const";
+import { MODE } from "../../const";
 
 const Canvas = (props) => {
 
@@ -67,7 +67,7 @@ const Canvas = (props) => {
                         }
                         {
                             props.objs.map(obj => 
-                                <Figure helpLines={true} obj={obj} key={obj.id} figure_className={figureCssClassname()} point_className={pointCssClassname()} />
+                                <Figure helpLines={true} helpPoints={true} obj={obj} key={obj.id} figure_className={figureCssClassname()} point_className={pointCssClassname()} />
                             )
                         }
                     </Fragment>

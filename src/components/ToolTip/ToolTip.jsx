@@ -33,13 +33,6 @@ export class ToolTip extends Component {
         rect.addEventListener('mouseleave', this.mouseLeaveHandler)
     }
 
-    componentWillUnmount = () => {
-        const rect = ReactDOM.findDOMNode(this)
-        rect.removeEventListener('mouseenter')
-        rect.removeEventListener('mousemove')
-        rect.removeEventListener('mouseleave')
-    }
-
     mouseEnterHandler = (e) => {
         this.mouseMoveHandler(e)
         this.timeOut = setTimeout(() => {
