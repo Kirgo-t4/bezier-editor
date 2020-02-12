@@ -4,6 +4,8 @@ import TempRect from "./TempRect";
 const WithBindRectHOC = (Figure) => {
     return class WithBindRectHOC extends Component {
 
+        /* Компонент-обертка, реализующий появление окаймляющего фигуру прямоугольника, при наведении на фигуру */
+
         constructor(props) {
             super(props)
             this.state = {

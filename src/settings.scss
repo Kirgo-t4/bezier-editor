@@ -1,30 +1,30 @@
-$bg-color: #f3f3f3;
-$text-color: #2b2b2b;
-$bg-menu-color: #4ca508;
-$bg-menu-button: #dcd253;
-$menu-btn-color: #3f4441;
-$bg-active-button: #f4ff52;
+$bg-color: #f3f3f3; /* Цвет фона */
+$text-color: #2b2b2b; /* Цвет текста */
+$bg-menu-color: #4ca508; /* Цвет фона в меню */
+$bg-menu-button: #dcd253; /* Цвет кнопок меню */
+$menu-btn-color: #3f4441; /* Цвет линий на картинках внутри кнопок меню */
+$bg-active-button: #f4ff52; /* Цвет кнопок меню при наведении или если кнопка активна */
 
-$bg-delete-button: #c79999;
-$bg-delete-button-active: #fbb2b2;
-$bg-delete-mode-color: #ce4242;
-$footer-border: #ccc;
+$bg-delete-button: #c79999; /* Цвет кнопки удаления */
+$bg-delete-button-active: #fbb2b2; /* Цвет кнопки удаления при наведении */
+$bg-delete-mode-color: #ce4242; /* Цвет рамки холста при активации режима удаления */
+$footer-border: #ccc; /* */
 
-$left-panel-color: #344034;
-$left-panel-btn-color: #96a098;
-$left-panel-btn-hover-color: #bed6c3;
+$left-panel-color: #344034; /* Цвет фона боковой панели */
+$left-panel-btn-color: #96a098; /* Цвет кнопки на боковой панели  */
+$left-panel-btn-hover-color: #bed6c3; /* Цвет кнопки на боковой панели при наведении */
 
-$base-font-size: 16px;
+$base-font-size: 16px; /* Базовый размер шрифта */
 
-$canvas-width: 700px;
+$canvas-width: 700px; /* Базовый размр холста */
 
-$header-height: 50px;
-$footer-height: 50px;
+$header-height: 50px; /* Высота хэдера */
+$footer-height: 50px; /* Высота футера */
 
-$left-panel-width: 50px;
-$left-panel-height-m: 35px;
+$left-panel-width: 50px; /* Ширина боковой панели */
+$left-panel-height-m: 35px; /* Высота боковой панели в портретном режиме на мобильных устройствах */
 
-$menu-l-button-width: 100px;
-$menu-m-button-width: 60px;
+$menu-l-button-width: 100px; /* Ширина больших кнопок в меню */
+$menu-m-button-width: 60px; /* Ширина маленьких кнопок в меню */
 
-$h3-size: 1.2em;
+$h3-size: 1.2em; /* Относительный размер шрифта подзаголовков */

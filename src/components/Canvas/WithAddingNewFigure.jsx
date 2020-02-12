@@ -8,6 +8,8 @@ import { ACTIONS, MODE, MIN_DIST_FOR_ADDING_FIGURE } from "../../const";
 
 export class WithAddingNewFigure extends Component {
 
+    /* Компонент обертка, служащий для реализации добавления новых фигур на холст */
+
     constructor(props) {
         super(props)
         this.CTM = {}

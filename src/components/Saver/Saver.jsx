@@ -6,6 +6,8 @@ import ReactDOM from 'react-dom'
 
 export class Saver extends Component {
 
+    /* Сохранение изображение на svg-компоненте в виде файла png */
+
     constructor(props) {
         super(props)
         this.state = {

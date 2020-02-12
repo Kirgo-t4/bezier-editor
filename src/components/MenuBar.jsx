@@ -43,7 +43,7 @@ const MenuBar = (props) => {
     return (
         <div className="menu">
             <div className="menu__sub-block">
-                <h3>Редактировать</h3>
+                <h3>{json_strings.menu_headers.edit}</h3>
                 <div className="menu__buttons-group">
                     <ToolTip text={json_strings.tooltips.edit}>
                         <button className={'button menu__button' + (props.current_mode === MODE.MOVE ? " menu__active-button" : "") } onClick={() => { props.changeMode(MODE.MOVE)}}>
@@ -82,7 +82,7 @@ const MenuBar = (props) => {
                 </div>
             </div>
             <div className="menu__sub-block">
-                <h3>Добавить</h3>
+                <h3>{json_strings.menu_headers.add}</h3>
                 <div className="menu__buttons-group">
                     <ToolTip text={json_strings.tooltips.add_qcurve} >
                         <button className={"button menu__button" + (props.current_mode === MODE.ADD_QCURVE ? " menu__active-button" : "")} 
@@ -128,7 +128,7 @@ const MenuBar = (props) => {
                 </div>
             </div>
             <div className="menu__sub-block">                
-                <h3>Масштаб</h3>
+                <h3>{json_strings.menu_headers.scale}</h3>
                 
                 <div className="menu__buttons-group">
                     <p>{props.svg_size.x}п <i className="fas fa-times"></i> {props.svg_size.y}п</p>
@@ -143,7 +143,7 @@ const MenuBar = (props) => {
                 </div>
             </div>
             <div className="menu__sub-block">
-                <h3>Координатная сетка</h3>
+                <h3>{json_strings.menu_headers.coords}</h3>
                 <div className="menu__buttons-group">
                     <ToolTip text={json_strings.tooltips.coords}>
                         <button className={"button menu__button" + (props.show_grid ? " menu__active-button" : "")} onClick={ props.toggleGrid }>

@@ -15,6 +15,8 @@ import { MODE } from "../../const";
 
 const Canvas = (props) => {
 
+    /* Компонент, реализующий функции svg-холста для фигур */
+
     const currentState = (children) => {
         switch(props.mode) {
             case MODE.MOVE: 

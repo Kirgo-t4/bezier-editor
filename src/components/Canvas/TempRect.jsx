@@ -2,6 +2,8 @@ import React, { Component } from 'react'
 
 export class TempRect extends Component {
 
+    /* Прямоугольник по заданным координатам */
+
     x = () => {
         if (!this.props.endpoint && this.props.endpoint !== 0) {
             return this.props.startpoint.x

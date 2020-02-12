@@ -96,6 +96,18 @@
     @media (max-width: 890px) {
         .left-panel {
             width: calc(#{$left-panel-width} - 20px);
+            transform: none;
+            .left-panel__button {
+                height: calc(#{$left-panel-width} - 20px);
+
+                span {
+                    display: none;
+                }
+
+                img {
+                    width: 100%;
+                }
+            }
         }
         .menu {
             margin-left: calc(#{$left-panel-width} - 18px);
@@ -128,11 +140,21 @@
             padding: 0;
             margin-bottom: 4px;
             top: $header-height;
+            transform: none;
         }
 
         .left-panel__button {
             width: $left-panel-height-m; 
             height: $left-panel-height-m;
+
+            span {
+                display: none;
+            }
+
+            img {
+                height: 100%;
+                width: 100%;
+            }
         }
 
         .inner-container {
@@ -170,6 +192,12 @@
 
             p {
                 min-width: 159px;
+            }
+
+            &:last-child {
+                .tooltip_custom {
+                    display: none;
+                }
             }
         }
 

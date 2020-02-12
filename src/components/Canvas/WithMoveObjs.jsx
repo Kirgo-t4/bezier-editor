@@ -7,6 +7,8 @@ import SVG from "./SVG"
 
 export class WithMoveObjs extends Component {
 
+    /* Компонент-обертка, реализующий перемещение фигур и их редактирование по опорным точкам */ 
+
     constructor(props) {
         super(props) 
         this.mouseDown = false

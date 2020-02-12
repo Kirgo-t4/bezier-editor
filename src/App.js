@@ -39,12 +39,12 @@ export class App extends Component {
     return (
       <Provider store={store}>
         <div className="App">
-          <Header text="Редактор кривых линий."/>
+          <Header text={json_strings.main_header}/>
           <aside className="left-panel">
             <ToolTip text={json_strings.tooltips.save}>
               <Saver>
                 <div className="button left-panel__button">
-                  <img src={saveButton} alt="save" />
+                  <span>{json_strings.panel_buttons.save}</span><img src={saveButton} alt="save" />
                 </div>
               </Saver>
             </ToolTip>

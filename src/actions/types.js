@@ -49,6 +49,9 @@ export class Point {
 }
 
 export class Figure {
+
+    /* Абстракный класс, реализующий общее поведение фигуры на холсте svg */
+
     constructor(points) {
         this.id = UUID.v4()
         this.type = null
