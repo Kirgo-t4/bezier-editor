@@ -1,4 +1,5 @@
 import React, { Component } from 'react'
+import PropTypes from "prop-types";
 
 export class TempRect extends Component {
 
@@ -50,6 +51,13 @@ export class TempRect extends Component {
             />
         )
     }
+}
+
+TempRect.propTypes = {
+    startpoint: PropTypes.object.isRequired,
+    endpoint: PropTypes.object,
+    width: PropTypes.number,
+    height: PropTypes.number,
 }
 
 export default TempRect

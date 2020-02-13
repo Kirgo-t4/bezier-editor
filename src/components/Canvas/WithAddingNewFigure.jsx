@@ -1,5 +1,7 @@
 import React, { Component } from 'react'
 import { connect } from "react-redux";
+import PropTypes from "prop-types";
+
 import { addObj } from "../../actions/objActions";
 import TempRect from "./TempRect";
 import { getSvgCoordsX, getSvgCoordsY } from "../common";
@@ -108,6 +110,10 @@ export class WithAddingNewFigure extends Component {
             </div>
         )
     }
+}
+
+WithAddingNewFigure.propTypes = {
+    children: PropTypes.node.isRequired
 }
 
 const mapDispatchToProps = (dispatch) => {

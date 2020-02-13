@@ -1,8 +1,8 @@
 import React from 'react';
+import PropTypes from 'prop-types';
 
 
-const CoordGrid = (props) => {
-    const { maxX, maxY, stepX, stepY } = props
+const CoordGrid = ({maxX, maxY, stepX, stepY}) => {
     const countX = Math.round(maxX/stepX)
     const countY = Math.round(maxY/stepY)
     return (
@@ -20,6 +20,14 @@ const CoordGrid = (props) => {
         </g>
     );
 }
+
+CoordGrid.propTypes = {
+    maxX: PropTypes.number.isRequired,
+    maxY: PropTypes.number.isRequired,
+    stepX: PropTypes.number.isRequired,
+    stepY: PropTypes.number.isRequired,
+}
+
 
 export default CoordGrid;
 

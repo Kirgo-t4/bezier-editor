@@ -1,4 +1,6 @@
 import React, { Component, Fragment } from 'react'
+import PropTypes from "prop-types";
+
 import FakeCanvasForSave from "./FakeCanvasForSave";
 import * as svgSaver from 'save-svg-as-png';
 import ReactDOM from 'react-dom'
@@ -41,6 +43,10 @@ export class Saver extends Component {
             </Fragment>
         )
     }
+}
+
+Saver.propTypes = {
+    children: PropTypes.node.isRequired,
 }
 
 export default Saver

@@ -1,4 +1,6 @@
 import React from 'react';
+import PropTypes from "prop-types";
+
 import logo from '../assets/line-chart.svg';
 
 const Header = ({text}) => {
@@ -18,6 +20,10 @@ const Header = ({text}) => {
             </div>
         </header>
     );
+}
+
+Header.propTypes = {
+    text: PropTypes.string,
 }
 
 export default Header;

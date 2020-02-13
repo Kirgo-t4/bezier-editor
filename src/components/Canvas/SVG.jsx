@@ -1,5 +1,6 @@
 import React from 'react';
 import { connect } from "react-redux";
+import PropTypes from "prop-types";
 
 const SVG = (props) => {
     return (
@@ -13,6 +14,11 @@ const mapStateToProps = (state) => {
     return {
         size: state.svg.size,
     }
+}
+
+SVG.propTypes = {
+    children: PropTypes.node.isRequired,
+    size: PropTypes.object.isRequired,
 }
 
 

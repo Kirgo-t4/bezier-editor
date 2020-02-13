@@ -1,5 +1,8 @@
 import { Component, Fragment } from "react";
 import React from 'react';
+import PropTypes from "prop-types";
+
+import { Figure as FigureClass } from "../actions/types";
 import Point from "./Point/Point";
 import WithBindRectHOC from "./../components/Canvas/WithBindRectHOC";
 
@@ -39,6 +42,12 @@ export class Figure extends Component {
             </Fragment>
         );
     }
+}
+
+Figure.propTypes = {
+    helpLines: PropTypes.bool,
+    helpPoints: PropTypes.bool,
+    obj: PropTypes.instanceOf(FigureClass).isRequired
 }
 
 export default WithBindRectHOC(Figure);
